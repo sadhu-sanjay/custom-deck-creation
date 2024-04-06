@@ -1,56 +1,64 @@
-    <style>
-        canvas {
-            border: 1px solid black;
-        }
-    </style>
+<script >
 
-<script>
+function drawDeck() {
+  const input = document.getElementById("inputData").value;
+  const commands = input.split(",").map((item) => item.trim());
+  const canvas = document.getElementById("deckCanvas");
+  const ctx = canvas.getContext("2d");
 
-    function drawDeck() {
-    const input = document.getElementById('inputData').value;
-    const commands = input.split(',').map(item => item.trim());
-    const canvas = document.getElementById('deckCanvas');
-    const ctx = canvas.getContext('2d');
+  let x = canvas.width / 2; // Start drawing from the center of the canvas
+  let y = canvas.height / 2;
+  let angle = 0; // Start with an initial angle of 0 degrees
 
-    let x = 0;
-    let y = 0;
-    let angle = 0;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+  ctx.moveTo(x, y);
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.moveTo(x, y);
+  // Set the stroke width to 4 pixels
+  ctx.lineWidth = 4;
 
-    for (let i = 0; i < commands.length; i++) {
-        const command = parseFloat(commands[i]);
-        if (isNaN(command)) {
-            continue; // Skip invalid commands
-        }
-
-        if (i % 2 === 0) {
-            // Length command
-            const length = command;
-            const radians = angle * Math.PI / 180;
-            x += length * Math.cos(radians);
-            y += length * Math.sin(radians);
-            ctx.lineTo(x, y);
-        } else {
-            // Angle command
-            angle = command;
-        }
+  for (let i = 0; i < commands.length; i++) {
+    const command = parseFloat(commands[i]);
+    if (isNaN(command)) {
+      continue; // Skip invalid commands
     }
 
-    ctx.stroke();
+    if (i % 2 === 0) {
+      // Length command
+      const length = command;
+      const radians = (angle * Math.PI) / 180; // Convert angle to radians
+      x += length * Math.cos(radians);
+      y += length * Math.sin(radians);
+      ctx.lineTo(x, y);
+    } else {
+      // Angle command
+      angle = command;
+    }
+  }
+
+  // Set stroke color to red
+  ctx.strokeStyle = 'red';
+  ctx.stroke();
 }
+
+
+  const button = document.getElementById("draw-button");
+  button.addEventListener("click", () => {
+    drawDeck() 
+  });
 </script>
-<body>
-    <h2>Deck Drawing</h2>
-    <label for="inputData">Enter Lengths and Angles:</label>
-    <input type="text" id="inputData" placeholder="e.g., 12, 90, 10, 45, 8.5">
 
-    <button onclick="drawDeck()">Draw</button>
+<style>
+  canvas {
+    border: 2px solid black;
+  }
+</style>
 
-    <canvas id="deckCanvas" width="800" height="600"></canvas>
+<h2>Deck Drawing</h2>
+<label for="inputData">Enter Lengths and Angles:</label>
+<input type="text" id="inputData" placeholder="e.g., 12, 90, 10, 45, 8.5" />
 
-</body>
+<button id="draw-button" class="btn" >Draw</button>
 
 
+<canvas id="deckCanvas" width="800" height="600"></canvas>
