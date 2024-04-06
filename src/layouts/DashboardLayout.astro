@@ -1,14 +1,18 @@
-<div class="grid grid-cols-12 h-[100dvh] w-full">
-  <aside class="col-span-2 border-8
-    p-4
-    w-full h-full">
-    <div class="grid gap-4">
-      <h1>Aside Hre</h1>
-      <input class="input-md border" />
-    </div>
-  </aside>
-  <main id="main-page" class="col-span-10 border-8
-    w-full h-full">
+<div class="grid grid-cols-12 grid-rows-12 h-screen w-full gap-4 border-8 border-gray-700">
+
+  <!-- Sidebar (2 columns wide) -->
+  <div class="col-span-2 row-span-12 border-gray-700 border-r-8">
+    <h1 class="p-4">Sidebar Here</h1>
+  </div>
+
+  <!-- Main Content Area (10 columns wide, spanning 9 rows) -->
+  <div class="col-span-10 row-span-9 p-4 ">
     <slot />
-  </main>
+  </div>
+
+  <!-- Footer (Spanning 12 columns, 3 rows height, ignoring the sidebar) -->
+  <div class="col-span-10 col-start-3 row-span-3 p-4 ">
+    <h2>Footer Here</h2>
+  </div>
 </div>
+

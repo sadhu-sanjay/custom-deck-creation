@@ -1,51 +1,15 @@
-<script >
+<script>
+  import Konva from "konva";
 
-function drawDeck() {
-  const input = document.getElementById("inputData").value;
-  const commands = input.split(",").map((item) => item.trim());
-  const canvas = document.getElementById("deckCanvas");
-  const ctx = canvas.getContext("2d");
+  function drawDeck() {
+    // first we need to create a stage
+    var stage = new Konva.Stage({
+      container: "container", // id of container <div>
+    });
 
-  let x = canvas.width / 2; // Start drawing from the center of the canvas
-  let y = canvas.height / 2;
-  let angle = 0; // Start with an initial angle of 0 degrees
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-
-  // Set the stroke width to 4 pixels
-  ctx.lineWidth = 4;
-
-  for (let i = 0; i < commands.length; i++) {
-    const command = parseFloat(commands[i]);
-    if (isNaN(command)) {
-      continue; // Skip invalid commands
-    }
-
-    if (i % 2 === 0) {
-      // Length command
-      const length = command;
-      const radians = (angle * Math.PI) / 180; // Convert angle to radians
-      x += length * Math.cos(radians);
-      y += length * Math.sin(radians);
-      ctx.lineTo(x, y);
-    } else {
-      // Angle command
-      angle = command;
-    }
+    // Create Layer
+    var layer = new Konva.Layer();
   }
-
-  // Set stroke color to red
-  ctx.strokeStyle = 'red';
-  ctx.stroke();
-}
-
-
-  const button = document.getElementById("draw-button");
-  button.addEventListener("click", () => {
-    drawDeck() 
-  });
 </script>
 
 <style>
@@ -54,11 +18,9 @@ function drawDeck() {
   }
 </style>
 
-<h2>Deck Drawing</h2>
-<label for="inputData">Enter Lengths and Angles:</label>
-<input type="text" id="inputData" placeholder="e.g., 12, 90, 10, 45, 8.5" />
-
-<button id="draw-button" class="btn" >Draw</button>
-
-
-<canvas id="deckCanvas" width="800" height="600"></canvas>
+<div id="container" class="bg-blue-100 w-full h-full">
+  <h2>Deck Drawing</h2>
+  <label for="inputData">Enter Lengths and Angles:</label>
+  <input type="text" id="inputData" placeholder="e.g., 12, 90, 10, 45, 8.5" />
+  <button id="draw-button" class="btn">Draw</button>
+</div>
