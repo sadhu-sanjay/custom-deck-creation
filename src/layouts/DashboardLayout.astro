@@ -1,10 +1,10 @@
 <div
-  class="grid grid-cols-12 grid-rows-12 h-screen w-full gap-4 border-8 border-gray-700"
+  class="grid grid-cols-12 grid-rows-12 h-screen w-full  "
 >
-  <!-- Sidebar (2 columns wide) -->
   <div class="
+  bg-red-400
   p-8
-  col-span-2 row-span-12 border-gray-700 border-r-8">
+  col-span-2 row-span-12 border-gray-700 border">
     <h1 >Sidebar Here</h1>
     <h1>Deck Drawing</h1>
     <label for="inputData">Enter Lengths and Angles:</label>
@@ -12,13 +12,10 @@
     <button id="draw-button" class="btn">Draw</button>
   </div>
 
-  <!-- Main Content Area (10 columns wide, spanning 9 rows) -->
-  <div class="col-span-10 row-span-9 p-4">
-    <slot />
+  <div class="col-span-10 row-span-9 border-gray-700 bg-blue-500">
   </div>
 
-  <!-- Footer (Spanning 12 columns, 3 rows height, ignoring the sidebar) -->
-  <div class="col-span-10 col-start-3 row-span-3 p-4">
+  <div class="col-span-10 col-start-3 row-span-3 border-gray-700 bg-blue-300">
     <h2>Footer Here</h2>
   </div>
 </div>
