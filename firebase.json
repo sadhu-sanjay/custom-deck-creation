@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "custom-deck-creation",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
