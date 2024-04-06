@@ -3,13 +3,40 @@
 
   function drawDeck() {
     // first we need to create a stage
+
+
     var stage = new Konva.Stage({
       container: "container", // id of container <div>
+      width:  600,
+      height: 600,
     });
 
     // Create Layer
     var layer = new Konva.Layer();
+
+    const circle = new Konva.Circle({
+      x: stage.width() / 2,
+      y: stage.height() / 2,
+      radius: 90,
+      fill: "red",
+      stroke: "black",
+      strokeWidth: 4,
+    });
+
+    // add Circle to Layer
+    layer.add(circle);
+
+    // add the layer to the stage
+    stage.add(layer);
+
+    layer.draw();
   }
+
+  const button = document.getElementById("draw-button");
+
+  button.addEventListener("click", () => {
+    drawDeck();
+  });
 </script>
 
 <style>
@@ -18,9 +45,6 @@
   }
 </style>
 
-<div id="container" class="bg-blue-100 w-full h-full">
-  <h2>Deck Drawing</h2>
-  <label for="inputData">Enter Lengths and Angles:</label>
-  <input type="text" id="inputData" placeholder="e.g., 12, 90, 10, 45, 8.5" />
-  <button id="draw-button" class="btn">Draw</button>
-</div>
+<div id="container" class="bg-blue-100"/>
+
+
