@@ -1,16 +1,16 @@
-<style>
-  canvas {
-    border: 1px solid black;
-  }
-</style>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
 
 <script>
 
-  function drawDeck() {
-    const input = document.getElementById("inputData").value;
-    const commands = input.split(",").map((item) => item.trim());
-    const canvas = document.getElementById("deckCanvas");
-    const ctx = canvas.getContext("2d");
+    function drawDeck() {
+    const input = document.getElementById('inputData').value;
+    const commands = input.split(',').map(item => item.trim());
+    const canvas = document.getElementById('deckCanvas');
+    const ctx = canvas.getContext('2d');
 
     let x = 0;
     let y = 0;
@@ -21,32 +21,36 @@
     ctx.moveTo(x, y);
 
     for (let i = 0; i < commands.length; i++) {
-      const command = parseFloat(commands[i]);
-      if (isNaN(command)) {
-        continue; // Skip invalid commands
-      }
+        const command = parseFloat(commands[i]);
+        if (isNaN(command)) {
+            continue; // Skip invalid commands
+        }
 
-      if (i % 2 === 0) {
-        // Length command
-        const length = command;
-        const radians = (angle * Math.PI) / 180;
-        x += length * Math.cos(radians);
-        y += length * Math.sin(radians);
-        ctx.lineTo(x, y);
-      } else {
-        // Angle command
-        angle = command;
-      }
+        if (i % 2 === 0) {
+            // Length command
+            const length = command;
+            const radians = angle * Math.PI / 180;
+            x += length * Math.cos(radians);
+            y += length * Math.sin(radians);
+            ctx.lineTo(x, y);
+        } else {
+            // Angle command
+            angle = command;
+        }
     }
 
     ctx.stroke();
-  }
+}
 </script>
+<body>
+    <h2>Deck Drawing</h2>
+    <label for="inputData">Enter Lengths and Angles:</label>
+    <input type="text" id="inputData" placeholder="e.g., 12, 90, 10, 45, 8.5">
 
-<h2>Deck Drawing</h2>
-<label for="inputData">Enter Lengths and Angles:</label>
-<input type="text" id="inputData" placeholder="e.g., 12, 90, 10, 45, 8.5" />
+    <button onclick="drawDeck()">Draw</button>
 
-<button onclick="drawDeck()">Draw</button>
+    <canvas id="deckCanvas" width="800" height="600"></canvas>
 
-<canvas id="deckCanvas" width="800" height="600"></canvas>
+</body>
+
+
