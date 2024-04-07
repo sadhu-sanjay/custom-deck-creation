@@ -1,40 +1,53 @@
 <script>
   import Konva from "konva";
 
-    // Initialize stage and layer
-    var stage = new Konva.Stage({
-      container: "container",
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
+  const containerEl = document.getElementById("container");
 
-    var layer = new Konva.Layer();
-    stage.add(layer);
+  // Initialize stage and layer
+  var stage = new Konva.Stage({
+    container: "container",
+    width: containerEl.clientWidth,
+    height: containerEl.clientHeight,
+  });
 
-    function drawDeck(inputStr) {
+  var deckLayer = new Konva.Layer();
+  stage.add(deckLayer);
+
+  var x = containerEl.clientWidth * 0.2 // Starting X coordinate
+  var y = containerEl.clientHeight * 0.2 // Starting Y coordinate 
+  var currentAngle = 0; // Starting angle in degrees
+  var line = new Konva.Line({
+    points: [x, y],
+    stroke: "darkblue",
+    strokeWidth: 8,
+    draggable: true,
+    strokeEnabled: true,
+    fillEnabled: true,
+    shadowColor: 'red', 
+  });
+
+  deckLayer.add(line);
+
+  function drawDeck() {
+    try {
+
+      deckLayer.clearBeforeDraw()
+
+      const inputStr = ( document.getElementById("inputData") as HTMLInputElement).value;
       var values = inputStr.split(",").map((value) => value.trim());
-      var x = 20; // Starting X coordinate
-      var y = 20; // Starting Y coordinate
-      var currentAngle = 0; // Starting angle in degrees
 
       for (var i = 0; i < values.length; i += 2) {
-        var length = parseFloat(values[i]);
-        var angle = parseFloat(values[i + 1]);
+        var angle = parseFloat(values[i]);
+        var length = parseFloat(values[i + 1]);
 
-        // Convert angle to radians
+        // Convert angle to Radians
         var angleRadians = ((currentAngle + angle) * Math.PI) / 180;
 
         // Calculate new endpoint coordinates
         var newX = x + length * Math.cos(angleRadians);
         var newY = y + length * Math.sin(angleRadians);
 
-        // Draw line
-        var line = new Konva.Line({
-          points: [x, y, newX, newY],
-          stroke: "black",
-          strokeWidth: 2,
-        });
-        layer.add(line);
+        line.points([...line.points(), newX, newY]);
 
         // Update current position and angle for the next segment
         x = newX;
@@ -42,20 +55,22 @@
         currentAngle += angle;
       }
 
-      // Redraw layer
-      layer.draw();
+      line.draw()
+    } catch (e) {
+      alert(e);
     }
+  }
 
-    // // Example usage:
-    // var userInput = prompt(
-    //   "Enter lengths and angles separated by commas (e.g., '12, 0, 30.5, 90, 16.25, 45'):"
-    // );
-    // drawDeck(userInput);
+  // // Example usage:
+  // var userInput = prompt(
+  //   "Enter lengths and angles separated by commas (e.g., '12, 0, 30.5, 90, 16.25, 45'):"
+  // );
+  // drawDeck(userInput);
 
   const button = document.getElementById("draw-button");
 
   button.addEventListener("click", () => {
-    drawDeck('12, 0, 30.5, 90, 16.25, 45');
+    drawDeck();
   });
 
   // const form = document.getElementById("form")
