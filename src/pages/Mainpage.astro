@@ -1,83 +1,68 @@
 <script>
   import Konva from "konva";
 
-  function drawDeck() {
-    const input = document.getElementById('inputData').value;
-    const commands = input.split(',').map(item => item.trim());
-
-    const container = document.getElementById('container')
-    const containerWidth = container.clientWidth
-    const containerHeight = container.clientHeight
-    
-    // Initialize Konva stage and layer
-    const stage = new Konva.Stage({
-        container: 'container',
-        width: containerWidth,
-        height: containerHeight
+    // Initialize stage and layer
+    var stage = new Konva.Stage({
+      container: "container",
+      width: window.innerWidth,
+      height: window.innerHeight,
     });
 
-    const layer = new Konva.Layer();
+    var layer = new Konva.Layer();
     stage.add(layer);
 
-    // Set the background color of the stage
-    // const backgroundRect = new Konva.Rect({
-    //     width: stage.width(),
-    //     height: stage.height(),
-    //     fill: 'red' // Background color
-    // });
-    // layer.add(backgroundRect);
+    function drawDeck(inputStr) {
+      var values = inputStr.split(",").map((value) => value.trim());
+      var x = 20; // Starting X coordinate
+      var y = 20; // Starting Y coordinate
+      var currentAngle = 0; // Starting angle in degrees
 
-    let x = 0;
-    let y = 0;
-    let angle = 0;
+      for (var i = 0; i < values.length; i += 2) {
+        var length = parseFloat(values[i]);
+        var angle = parseFloat(values[i + 1]);
 
-    // Create a line starting from (0, 0)
-    const line = new Konva.Line({
-        points: [0,0],
-        stroke: 'black',
-        strokeWidth: 4
-    });
-    layer.add(line);
+        // Convert angle to radians
+        var angleRadians = ((currentAngle + angle) * Math.PI) / 180;
 
-    for (let i = 0; i < commands.length; i++) {
-        const command = parseFloat(commands[i]);
-        if (isNaN(command)) {
-            continue; // Skip invalid commands
-        }
+        // Calculate new endpoint coordinates
+        var newX = x + length * Math.cos(angleRadians);
+        var newY = y + length * Math.sin(angleRadians);
 
-        if (i % 2 === 0) {
-            // Length command
-            const length = command;
-            const radians = (angle - 90) * Math.PI / 180;
+        // Draw line
+        var line = new Konva.Line({
+          points: [x, y, newX, newY],
+          stroke: "black",
+          strokeWidth: 2,
+        });
+        layer.add(line);
 
-            const newX = x + length * Math.cos(radians);
-            const newY = y + length * Math.sin(radians);
+        // Update current position and angle for the next segment
+        x = newX;
+        y = newY;
+        currentAngle += angle;
+      }
 
-            line.points([...line.points(), newX, newY]);
-
-            x = newX;
-            y = newY;
-        } else {
-            // Angle command
-            angle = command;
-        }
+      // Redraw layer
+      layer.draw();
     }
 
-    layer.batchDraw();
-}
-
+    // // Example usage:
+    // var userInput = prompt(
+    //   "Enter lengths and angles separated by commas (e.g., '12, 0, 30.5, 90, 16.25, 45'):"
+    // );
+    // drawDeck(userInput);
 
   const button = document.getElementById("draw-button");
 
   button.addEventListener("click", () => {
-    drawDeck();
+    drawDeck('12, 0, 30.5, 90, 16.25, 45');
   });
 
-  const form = document.getElementById("form")
-  form.addEventListener('submit', (e) => {
-    e.preventDefault()
-    drawDeck()
-  })
+  // const form = document.getElementById("form")
+  // form.addEventListener('submit', (e) => {
+  //   e.preventDefault()
+  //   drawDeck()
+  // })
 </script>
 
 <style>
@@ -86,4 +71,4 @@
   }
 </style>
 
-<div id="container" class="bg-blue-300 w-full h-full" />
+<div id="container" class="w-full h-full"></div>
