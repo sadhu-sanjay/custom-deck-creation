@@ -5,17 +5,15 @@ import Sidebar from "~/components/organisms/Sidebar.astro";
 <div
   class="grid grid-cols-12 grid-rows-12 h-screen w-full border-8 border-gray-700"
 >
-  <!-- Sidebar (2 columns wide) -->
+
   <div class="p-8 col-span-2 row-span-12 border-gray-700 border-r-8">
     <Sidebar />
   </div>
 
-  <!-- Main Content Area (10 columns wide, spanning 9 rows) -->
   <div class="col-span-10 row-span-9 border-b-8 border-gray-700">
     <slot />
   </div>
 
-  <!-- Footer (Spanning 12 columns, 3 rows height, ignoring the sidebar) -->
   <div class="col-span-10 col-start-3 row-span-3">
     <h2>Footer Here</h2>
   </div>
