@@ -29,16 +29,20 @@
   deckLayer.add(line);
 
   function drawDeck() {
-    try {
 
-      deckLayer.clearBeforeDraw()
+      // Reset Line
+      line.points([x, y])
+      currentAngle = 0
+
+    try {
 
       const inputStr = ( document.getElementById("inputData") as HTMLInputElement).value;
       var values = inputStr.split(",").map((value) => value.trim());
 
       for (var i = 0; i < values.length; i += 2) {
+
         var angle = parseFloat(values[i]);
-        var length = parseFloat(values[i + 1]);
+        var length = parseFloat(values[i + 1])
 
         // Convert angle to Radians
         var angleRadians = ((currentAngle + angle) * Math.PI) / 180;
@@ -69,7 +73,8 @@
 
   const button = document.getElementById("draw-button");
 
-  button.addEventListener("click", () => {
+  button.addEventListener("click", (e) => {
+    e.preventDefault()
     drawDeck();
   });
 
