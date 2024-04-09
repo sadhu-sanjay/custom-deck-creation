@@ -19,44 +19,43 @@
   var line = new Konva.Line({
     points: [x, y],
     stroke: "black",
-    strokeWidth: 1,
+    strokeWidth: 5,
     draggable: true,
     strokeEnabled: true,
     fillEnabled: true,
     shadowColor: "red",
   });
-
   deckLayer.add(line);
 
-  function drawControl() {
+  function createCircle(x, y) {
     const circle = new Konva.Circle({
-      radius: 10,
       x: x,
       y: y,
-      stroke: "black",
-      fill: "white",
-      strokeWidth: 1,
-      // offset: {x: -8, y: -8}
+      radius: 20,
+      fill: "red",
       draggable: true,
     });
 
-    var rect = new Konva.Rect({
-      x: x,
-      y: y,
-      width: 10,
-      height: 10,
-      stroke: "black",
-      strokeWidth: 1,
-      offset: { x: 5, y: 5 },
+
+
+    // Event listener for dragend event
+    circle.on("dragend", (e) => {
+      const target = e.target;
+      const targetPos = target.getAbsolutePosition();
+      
+      const targetX = target.getAbsolutePosition().x
+      const targetY = target.getAbsolutePosition().y
+
+      createCircle(targetX, targetY)
+
     });
 
     deckLayer.add(circle);
-    // deckLayer.add(rect);
   }
 
-  function drawDeck() {
-    drawControl();
+  createCircle(x, y); // Initial circle
 
+  function drawDeck() {
     // Reset Line
     line.points([x, y]);
     currentAngle = 0;
@@ -92,24 +91,11 @@
     }
   }
 
-  // // Example usage:
-  // var userInput = prompt(
-  //   "Enter lengths and angles separated by commas (e.g., '12, 0, 30.5, 90, 16.25, 45'):"
-  // );
-  // drawDeck(userInput);
-
   const button = document.getElementById("draw-button");
-
   button.addEventListener("click", (e) => {
     e.preventDefault();
     drawDeck();
   });
-
-  // const form = document.getElementById("form")
-  // form.addEventListener('submit', (e) => {
-  //   e.preventDefault()
-  //   drawDeck()
-  // })
 </script>
 
 <style>
