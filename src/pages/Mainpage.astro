@@ -1,6 +1,6 @@
 <script>
   import Konva from "konva";
-  import { createPost } from './drawer';
+  import { createPost } from "./Post";
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -19,9 +19,8 @@
 
   var deckLayer = new Konva.Layer();
   var drawerLayer = new Konva.Layer();
-  stage.add(drawerLayer);
   stage.add(deckLayer);
-
+  stage.add(drawerLayer);
 
   var line = new Konva.Line({
     points: [boardX, boardY],
@@ -50,8 +49,8 @@
 
   function drawDeck() {
     let currentContextAngle = boardAngle;
-    let currentContextX = boardX
-    let currentContextY = boardY
+    let currentContextX = boardX;
+    let currentContextY = boardY;
 
     try {
       const inputStr = (
@@ -95,6 +94,20 @@
   canvas {
     border: 2px solid black;
   }
+
+  #background {
+    background-color: #add8e6; /* Light blue color */
+    background-size: 20px 20px; /* Size of each grid square */
+    background-image: linear-gradient(
+        to right,
+        transparent 1px,
+        rgba(255, 255, 255, 0.5) 1px
+      ),
+      linear-gradient(to bottom, transparent 1px, rgba(255, 255, 255, 0.5) 1px);
+    /* Creating grid lines */
+  }
 </style>
 
-<div id="container" class="w-full h-full"></div>
+<div id="background" class="w-full h-full">
+  <div id="container" class="w-full h-full"></div>
+</div>

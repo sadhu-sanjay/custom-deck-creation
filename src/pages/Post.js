@@ -4,7 +4,8 @@ export const createPost = (x, y, drawerLayer) => {
       y: 0,
       width: 20,
       height: 20,
-      fill: "black",
+      stroke: 'gray',
+      strokeWidth: 2,
       offsetX: 10,
       offsetY: 10,
     });
@@ -12,8 +13,8 @@ export const createPost = (x, y, drawerLayer) => {
       x: 0,
       y: 0,
       radius: 20,
-      stroke: "red",
-      fill: "red",
+      stroke: "gray",
+      fill: "white",
     });
     const group = new Konva.Group({
       x: x,
