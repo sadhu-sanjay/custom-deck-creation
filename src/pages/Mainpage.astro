@@ -7,7 +7,8 @@
   const containerHeight = containerEl.clientHeight;
   let boardX = containerWidth * 0.1; // Starting X coordinate
   let boardY = containerHeight * 0.2; // Starting Y coordinate
-  var currentAngle = 0; // Starting angle in degrees
+  const boardAngle = 0; // Starting angle in degrees
+  var objectDrawerX = containerEl.clientWidth * 0.8;
 
   // Initialize stage and layer
   var stage = new Konva.Stage({
@@ -21,8 +22,6 @@
   stage.add(drawerLayer);
   stage.add(deckLayer);
 
-  // sidebar x
-  var sidebarX = containerEl.clientWidth * 0.8;
 
   var line = new Konva.Line({
     points: [boardX, boardY],
@@ -47,14 +46,12 @@
   });
   deckLayer.add(line);
 
-  createPost(sidebarX, boardY, drawerLayer);
+  createPost(objectDrawerX, boardY, drawerLayer);
 
   function drawDeck() {
-    console.log(containerWidth * 0.1, containerHeight * 0.2);
-    console.log(boardX, boardY);
-    // Reset Line
-    line.points([boardX, boardY]);
-    currentAngle = 0;
+    let currentContextAngle = boardAngle;
+    let currentContextX = boardX
+    let currentContextY = boardY
 
     try {
       const inputStr = (
@@ -67,18 +64,18 @@
         var length = parseFloat(values[i + 1]);
 
         // Convert angle to Radians
-        var angleRadians = ((currentAngle + angle) * Math.PI) / 180;
+        var angleRadians = ((currentContextAngle + angle) * Math.PI) / 180;
 
         // Calculate new endpoint coordinates
-        var newX = boardX + length * Math.cos(angleRadians);
-        var newY = boardY + length * Math.sin(angleRadians);
+        var newX = currentContextX + length * Math.cos(angleRadians);
+        var newY = currentContextY + length * Math.sin(angleRadians);
 
         line.points([...line.points(), newX, newY]);
 
         // Update current position and angle for the next segment
-        boardX = newX;
-        boardY = newY;
-        currentAngle += angle;
+        currentContextX = newX;
+        currentContextY = newY;
+        currentContextAngle += angle;
       }
 
       line.draw();
