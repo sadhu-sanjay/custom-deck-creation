@@ -13,51 +13,107 @@
   var deckLayer = new Konva.Layer();
   stage.add(deckLayer);
 
-  var x = containerEl.clientWidth * 0.1; // Starting X coordinate
-  var y = containerEl.clientHeight * 0.2; // Starting Y coordinate
+  var boardX = containerEl.clientWidth * 0.1; // Starting X coordinate
+  var boardY = containerEl.clientHeight * 0.2; // Starting Y coordinate
   var currentAngle = 0; // Starting angle in degrees
+
+  // sidebar x
+  var sidebarX = containerEl.clientWidth * 0.8;
+
   var line = new Konva.Line({
-    points: [x, y],
+    points: [boardX, boardY],
     stroke: "black",
-    strokeWidth: 5,
-    draggable: true,
+    strokeWidth: 8,
     strokeEnabled: true,
     fillEnabled: true,
     shadowColor: "red",
+        lineCap: 'round',
+        lineJoin: 'round',
+        /*
+         * line segments with a length of 29px with a gap
+         * of 20px followed by a line segment of 0.001px (a dot)
+         * followed by a gap of 20px
+         */
+        dash: [29, 20, 0.001, 20],
   });
   deckLayer.add(line);
 
-  function createCircle(x, y) {
+  const createCircle = (x, y) => {
+
+    const rect = new Konva.Rect({
+      x: 0,
+      y: 0,
+      width: 20,
+      height: 20,
+      fill: 'black',
+      offsetX: 10,
+      offsetY: 10,
+    })
     const circle = new Konva.Circle({
+      x: 0,
+      y: 0,
+      radius: 20,
+      stroke: 'red',
+      fill: "red",
+    });
+    const group = new Konva.Group({
       x: x,
       y: y,
-      radius: 20,
-      fill: "red",
       draggable: true,
-    });
+    })
+    group.add(circle, rect)
 
 
+    var startCopyEnabled = false;
+    var endCopyEnabled = false;
 
-    // Event listener for dragend event
-    circle.on("dragend", (e) => {
+    group.on("dragstart", (e) => {
       const target = e.target;
-      const targetPos = target.getAbsolutePosition();
-      
-      const targetX = target.getAbsolutePosition().x
-      const targetY = target.getAbsolutePosition().y
+      const position = target.getAbsolutePosition();
 
-      createCircle(targetX, targetY)
+      const targetX = position.x;
+      const targetY = position.y;
 
+      // dont crate a copy if its not the sidebar circle
+      if (targetX == sidebarX && targetY == boardY) {
+        startCopyEnabled = true;
+      }
     });
 
-    deckLayer.add(circle);
-  }
+    group.on("dragend", (e) => {
+      const target = e.target;
+      const position = target.getAbsolutePosition();
 
-  createCircle(x, y); // Initial circle
+      const targetX = position.x;
+      const targetY = position.y;
+
+      if (targetX < sidebarX) {
+        endCopyEnabled = true;
+      } else {
+        target.to({
+          x: x,
+          y: y,
+          duration: 0.2, // Animation duration (in seconds) to snap back to original position
+        });
+      }
+
+      if (endCopyEnabled && startCopyEnabled) {
+        createCircle(sidebarX, boardY);
+      }
+
+      // reset Flags
+      endCopyEnabled = false;
+      startCopyEnabled = false;
+    });
+
+    deckLayer.add(group);
+  };
+
+  createCircle(sidebarX, boardY);
 
   function drawDeck() {
     // Reset Line
-    line.points([x, y]);
+    line.points([boardX, boardY]);
     currentAngle = 0;
 
     try {
@@ -74,14 +130,14 @@
         var angleRadians = ((currentAngle + angle) * Math.PI) / 180;
 
         // Calculate new endpoint coordinates
-        var newX = x + length * Math.cos(angleRadians);
-        var newY = y + length * Math.sin(angleRadians);
+        var newX = boardX + length * Math.cos(angleRadians);
+        var newY = boardY + length * Math.sin(angleRadians);
 
         line.points([...line.points(), newX, newY]);
 
         // Update current position and angle for the next segment
-        x = newX;
-        y = newY;
+        boardX = newX;
+        boardY = newY;
         currentAngle += angle;
       }
 
