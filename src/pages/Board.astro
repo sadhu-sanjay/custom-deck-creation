@@ -1,0 +1,67 @@
+<script>
+  import Konva from "konva";
+  import { createPost } from "~/drawing/post";
+  import { createRailingPost } from "~/drawing/railing-post";
+  import { drawDeck } from "~/drawing/base-deck";
+
+  const containerEl = document.getElementById("container");
+  const containerWidth = containerEl.clientWidth;
+  const containerHeight = containerEl.clientHeight;
+  const boardX = containerWidth * 0.1; // Starting X coordinate
+  const boardY = containerHeight * 0.2; // Starting Y coordinate
+  const startAngle = 0; // Starting angle in degrees
+  var objectDrawerX = containerEl.clientWidth * 0.85;
+
+  // Initialize stage and layer
+  var stage = new Konva.Stage({
+    container: "container",
+    width: containerWidth,
+    height: containerHeight,
+  });
+
+  var deckLayer = new Konva.Layer();
+  var drawerLayer = new Konva.Layer();
+  stage.add(deckLayer);
+  stage.add(drawerLayer);
+
+  function startBuilding() {
+
+    // Start Deck
+    const inputStr = (document.getElementById("inputData") as HTMLInputElement)
+      .value;
+    const deck = drawDeck(inputStr, boardX, boardY, startAngle);
+    deckLayer.add(deck);
+
+    // Start Post
+    createPost(objectDrawerX, boardY, drawerLayer);
+    createRailingPost(objectDrawerX, boardY + 50, drawerLayer);
+  }
+
+  const button = document.getElementById("draw-button");
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    startBuilding();
+  });
+</script>
+
+<style>
+  canvas {
+    border: 2px solid black;
+  }
+
+  #background {
+    background-color: #add8e6; /* Light blue color */
+    background-size: 20px 20px; /* Size of each grid square */
+    background-image: linear-gradient(
+        to right,
+        transparent 1px,
+        rgba(255, 255, 255, 0.5) 1px
+      ),
+      linear-gradient(to bottom, transparent 1px, rgba(255, 255, 255, 0.5) 1px);
+    /* Creating grid lines */
+  }
+</style>
+
+<div id="background" class="w-full h-full">
+  <div id="container" class="w-full h-full"></div>
+</div>
