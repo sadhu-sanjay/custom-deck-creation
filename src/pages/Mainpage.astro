@@ -1,6 +1,7 @@
 <script>
   import Konva from "konva";
-  import { createPost } from "./Post";
+  import { createPost } from "~/drawing/post"
+  import { createRailingPost } from "~/drawing/railing-post"
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -8,14 +9,14 @@
   let boardX = containerWidth * 0.1; // Starting X coordinate
   let boardY = containerHeight * 0.2; // Starting Y coordinate
   const boardAngle = 0; // Starting angle in degrees
-  var objectDrawerX = containerEl.clientWidth * 0.8;
+  var objectDrawerX = containerEl.clientWidth * 0.85;
 
   // Initialize stage and layer
   var stage = new Konva.Stage({
     container: "container",
     width: containerWidth,
     height: containerHeight,
-  });
+  })
 
   var deckLayer = new Konva.Layer();
   var drawerLayer = new Konva.Layer();
@@ -25,7 +26,7 @@
   var line = new Konva.Line({
     points: [boardX, boardY],
     stroke: "black",
-    strokeWidth: 8,
+    strokeWidth: 4,
     strokeEnabled: true,
     fillEnabled: true,
     shadowEnabled: true,
@@ -46,6 +47,8 @@
   deckLayer.add(line);
 
   createPost(objectDrawerX, boardY, drawerLayer);
+  // createRailingPost(objectDrawerX, boardY + 10, drawerLayer);
+  drawDeck()
 
   function drawDeck() {
     let currentContextAngle = boardAngle;
