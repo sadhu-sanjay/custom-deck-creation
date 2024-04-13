@@ -3,6 +3,8 @@
   import { createPost } from "~/drawing/post";
   import { createRailingPost } from "~/drawing/railing-post";
   import { drawDeck } from "~/drawing/base-deck";
+  import { createCapRail } from "~/drawing/cap-rail";
+
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -26,15 +28,15 @@
 
   function startBuilding() {
 
-    // Start Deck
     const inputStr = (document.getElementById("inputData") as HTMLInputElement)
       .value;
     const deck = drawDeck(inputStr, boardX, boardY, startAngle);
     deckLayer.add(deck);
 
     // Start Post
-    createPost(objectDrawerX, boardY, drawerLayer);
-    createRailingPost(objectDrawerX, boardY + 50, drawerLayer);
+    // createPost(objectDrawerX, boardY, drawerLayer);
+    // createRailingPost(objectDrawerX, boardY + 50, drawerLayer);
+    // createCapRail(objectDrawerX, boardY + 100, drawerLayer);
   }
 
   const button = document.getElementById("draw-button");
@@ -51,7 +53,7 @@
 
   #background {
     background-color: #add8e6; /* Light blue color */
-    background-size: 20px 20px; /* Size of each grid square */
+    background-size: 24px 24px; /* Size of each grid square */
     background-image: linear-gradient(
         to right,
         transparent 1px,

@@ -28,7 +28,6 @@ export const createPost = (x, y, layerObjectPicker) => {
     draggable: true,
   });
   mainGroup.add(circle, rect);
-  mainGroup.zIndex = 0
 
   /* Secondarly Group */
   const text = new Konva.Text({
