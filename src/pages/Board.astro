@@ -5,7 +5,6 @@
   import { drawDeck } from "~/drawing/base-deck";
   import { createCapRail } from "~/drawing/cap-rail";
 
-
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
   const containerHeight = containerEl.clientHeight;
@@ -27,7 +26,6 @@
   stage.add(drawerLayer);
 
   function startBuilding() {
-
     const inputStr = (document.getElementById("inputData") as HTMLInputElement)
       .value;
     const deck = drawDeck(inputStr, boardX, boardY, startAngle);
@@ -64,5 +62,5 @@
 </style>
 
 <div id="background" class="w-full h-full">
-  <div id="container" class="w-full h-full"></div>
+    <div id="container" class="w-full h-full"></div>
 </div>
