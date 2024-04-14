@@ -1,5 +1,3 @@
-import { createDraggableGroup } from "./draggable-group";
-
 export const createCapRail = (x, y, drawerLayer) => {
     const rect = new Konva.Rect({
       x: 0,
@@ -11,7 +9,59 @@ export const createCapRail = (x, y, drawerLayer) => {
       offsetX: 7,
       offsetY: 7,
     });
-    const group = createDraggableGroup(x, y, [rect])
+
+    /**
+   * CREATE NEW DRAGGABLE GROUP */ 
+
+  const mainGroup = new Konva.Group({
+    x: x,
+    y: y,
+    draggable: true,
+  });
+
+  mainGroup.add(circle, rect)
+
+  let startCopyEnabled = false;
+  let endCopyEnabled = false;
+
+  mainGroup.on("dragstart", (e) => {
+    const target = e.target;
+    const position = target.getAbsolutePosition();
+    const { x: targetX, y: targetY } = position;
+
+    if (targetX === x && targetY === y) {
+      startCopyEnabled = true;
+    }
+  });
+
+  mainGroup.on("dragend", (e) => {
+    const target = e.target;
+    const position = target.getAbsolutePosition();
+    const { x: targetX } = position;
+
+    if (targetX < x) {
+      endCopyEnabled = true;
+    } else {
+      target.to({
+        x: x,
+        y: y,
+        duration: 0.2,
+      });
+    }
+
+    if (endCopyEnabled && startCopyEnabled) {
+      createCapRail(x, y, drawerLayer)
+    }
+
+    // Reset flags
+    endCopyEnabled = false;
+    startCopyEnabled = false;
+
+  });
+
+  /**
+   * END NEW DRAGGABLE GROUP
+   */
   
     /* Secondarly Group */
     const text = new Konva.Text({

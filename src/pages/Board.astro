@@ -28,14 +28,14 @@
 
   function startBuilding() {
 
-    // const inputStr = (document.getElementById("inputData") as HTMLInputElement)
-    //   .value;
-    // const deck = drawDeck(inputStr, boardX, boardY, startAngle);
-    // deckLayer.add(deck);
+    const inputStr = (document.getElementById("inputData") as HTMLInputElement)
+      .value;
+    const deck = drawDeck(inputStr, boardX, boardY, startAngle);
+    deckLayer.add(deck);
 
     createPost(objectDrawerX, boardY, drawerLayer);
-    // createRailingPost(objectDrawerX, boardY + 50, drawerLayer);
-    // createCapRail(objectDrawerX, boardY + 100, drawerLayer);
+    createRailingPost(objectDrawerX, boardY + 50, drawerLayer);
+    createCapRail(objectDrawerX, boardY + 100, drawerLayer);
   }
 
   const button = document.getElementById("draw-button");

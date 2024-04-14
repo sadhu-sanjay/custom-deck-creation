@@ -67,6 +67,7 @@ export const createPost = (x, y, layer) => {
     // Reset flags
     endCopyEnabled = false;
     startCopyEnabled = false;
+
   });
 
   /**
