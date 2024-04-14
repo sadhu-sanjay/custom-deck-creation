@@ -1,13 +1,12 @@
-import Konva from "konva";
+export const createDraggableGroup = (x, y, shapes, layer) => {
 
-export const createDraggableGroup = (x, y, shapes) => {
-
-  const draggableGroup = new Konva.Group({
+  const group = new Konva.Group({
     x: x,
     y: y,
     draggable: true,
   });
-  group.add([shapes]);
+
+  group.add(...shapes);
 
   let startCopyEnabled = false;
   let endCopyEnabled = false;
@@ -38,7 +37,7 @@ export const createDraggableGroup = (x, y, shapes) => {
     }
 
     if (endCopyEnabled && startCopyEnabled) {
-      createDraggableObject(x, y, layer, shapeConfig, textLabel);
+      createDraggableGroup(x, y, shapes, layer)
     }
 
     // Reset flags
@@ -46,6 +45,6 @@ export const createDraggableGroup = (x, y, shapes) => {
     startCopyEnabled = false;
   });
 
-  return draggableGroup
+  layer.add(group)
 };
 

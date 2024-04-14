@@ -1,6 +1,6 @@
 import Konva from "konva";
 
-export const createPost = (x, y, layerObjectPicker) => {
+export const createPost = (x, y, layer) => {
 
   /*main Draggble shapes */
   const rect = new Konva.Rect({
@@ -21,13 +21,58 @@ export const createPost = (x, y, layerObjectPicker) => {
     fill: "white",
   });
 
-  /* Primary Group */
+  /**
+   * CREATE NEW DRAGGABLE GROUP */ 
+
   const mainGroup = new Konva.Group({
     x: x,
     y: y,
     draggable: true,
   });
-  mainGroup.add(circle, rect);
+
+  mainGroup.add(circle, rect)
+
+  let startCopyEnabled = false;
+  let endCopyEnabled = false;
+
+  mainGroup.on("dragstart", (e) => {
+    const target = e.target;
+    const position = target.getAbsolutePosition();
+    const { x: targetX, y: targetY } = position;
+
+    if (targetX === x && targetY === y) {
+      startCopyEnabled = true;
+    }
+  });
+
+  mainGroup.on("dragend", (e) => {
+    const target = e.target;
+    const position = target.getAbsolutePosition();
+    const { x: targetX } = position;
+
+    if (targetX < x) {
+      endCopyEnabled = true;
+    } else {
+      target.to({
+        x: x,
+        y: y,
+        duration: 0.2,
+      });
+    }
+
+    if (endCopyEnabled && startCopyEnabled) {
+      createPost(x, y, layer)
+    }
+
+    // Reset flags
+    endCopyEnabled = false;
+    startCopyEnabled = false;
+  });
+
+  /**
+   * END NEW DRAGGABLE GROUP
+   */
+    
 
   /* Secondarly Group */
   const text = new Konva.Text({
@@ -45,50 +90,5 @@ export const createPost = (x, y, layerObjectPicker) => {
   });
   textGroup.add(text)
 
-  
-  var startCopyEnabled = false;
-  var endCopyEnabled = false;
-
-  mainGroup.on("dragstart", (e) => {
-    const target = e.target;
-    const position = target.getAbsolutePosition();
-
-    const targetX = position.x;
-    const targetY = position.y;
-
-    // dont crate a copy if its not the sidebar circle
-    console.log(targetX == x);
-    console.log(targetY, y);
-    if (targetX == x && targetY == y) {
-      startCopyEnabled = true;
-    }
-  });
-
-  mainGroup.on("dragend", (e) => {
-    const target = e.target;
-    const position = target.getAbsolutePosition();
-
-    const targetX = position.x;
-    const targetY = position.y;
-
-    if (targetX < x) {
-      endCopyEnabled = true;
-    } else {
-      target.to({
-        x: x,
-        y: y,
-        duration: 0.2, // Animation duration (in seconds) to snap back to original position
-      });
-    }
-
-    if (endCopyEnabled && startCopyEnabled) {
-      createPost(x, y, layerObjectPicker);
-    }
-
-    // reset Flags
-    endCopyEnabled = false;
-    startCopyEnabled = false;
-  });
-
-  layerObjectPicker.add(mainGroup, textGroup);
+  layer.add(mainGroup, textGroup);
 };
