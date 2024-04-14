@@ -19,7 +19,7 @@ export const createCapRail = (x, y, drawerLayer) => {
     draggable: true,
   });
 
-  mainGroup.add(circle, rect)
+  mainGroup.add(rect)
 
   let startCopyEnabled = false;
   let endCopyEnabled = false;
@@ -78,5 +78,5 @@ export const createCapRail = (x, y, drawerLayer) => {
     });
     textGroup.add(text)
   
-    drawerLayer.add(group, textGroup);
+    drawerLayer.add(mainGroup, textGroup);
   };
