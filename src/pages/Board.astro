@@ -4,6 +4,7 @@
   import { createRailingPost } from "~/drawing/railing-post";
   import { drawDeck } from "~/drawing/base-deck";
   import { createCapRail } from "~/drawing/cap-rail";
+  import { createGraphLayer } from "~/drawing/graph-background"
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -19,6 +20,9 @@
     width: containerWidth,
     height: containerHeight,
   });
+
+  const graphLayer = createGraphLayer(stage.width(), stage.height())
+  stage.add(graphLayer)
 
   var deckLayer = new Konva.Layer();
   var drawerLayer = new Konva.Layer();
@@ -61,6 +65,6 @@
   }
 </style>
 
-<div id="background" class="w-full h-full">
+<div id="" class="w-full h-full">
     <div id="container" class="w-full h-full"></div>
 </div>
