@@ -5,6 +5,7 @@
   import { drawDeck } from "~/drawing/base-deck";
   import { createCapRail } from "~/drawing/cap-rail";
   import { createGraphLayer } from "~/drawing/graph-background";
+  import { createTransformer } from "~/drawing/create-transformer"
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -20,37 +21,8 @@
     width: containerWidth,
     height: containerHeight,
   });
-  const tr = new Konva.Transformer({
-    anchorStyleFunc: (anchor) => {
-      const patternImage = new Image();
-      patternImage.src = "/refresh.png";
 
-      if (anchor.hasName("rotater")) {
-        anchor.height(16);
-        anchor.width(16);
-        anchor.strokeWidth(0)
-
-        anchor.offsetX(8);
-        anchor.offsetY(8);
-
-        anchor.fill(null);
-        anchor.fillPatternImage(patternImage);
-        return anchor;
-      }
-    },
-  });
-
-  const rotater = tr.findOne(".rotater");
-  rotater.on("mouseenter", () => {
-    stage.content.style.cursor = "url(/refresh.png), auto";
-  });
-
-  rotater.on("mouseleave", () => {
-    stage.content.style.cursor = "";
-  });
-
-  // console.info("rt", rt)
-  // stage.container().style.cursor = 'url(/marker.png), auto';
+  const tr = createTransformer(stage)
 
   var deckLayer = new Konva.Layer();
   var drawerLayer = new Konva.Layer();
