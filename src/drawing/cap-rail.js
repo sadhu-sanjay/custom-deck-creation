@@ -47,11 +47,11 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
     } else {
       target.to({
         x: x,
-        y: y,
+          y: y,
         duration: 0.2,
       });
     }
-
+                              
     if (endCopyEnabled && startCopyEnabled) {
       createCapRail(x, y, drawerLayer, tr)
     }

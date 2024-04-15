@@ -20,23 +20,51 @@
     width: containerWidth,
     height: containerHeight,
   });
-  const tr = new Konva.Transformer()
+  const tr = new Konva.Transformer({
+    anchorStyleFunc: (anchor) => {
+      const patternImage = new Image();
+      patternImage.src = "/refresh.png";
+
+      if (anchor.hasName("rotater")) {
+        anchor.height(16);
+        anchor.width(16);
+        anchor.strokeWidth(0)
+
+        anchor.offsetX(8);
+        anchor.offsetY(8);
+
+        anchor.fill(null);
+        anchor.fillPatternImage(patternImage);
+        return anchor;
+      }
+    },
+  });
+
+  const rotater = tr.findOne(".rotater");
+  rotater.on("mouseenter", () => {
+    stage.content.style.cursor = "url(/refresh.png), auto";
+  });
+
+  rotater.on("mouseleave", () => {
+    stage.content.style.cursor = "";
+  });
+
+  // console.info("rt", rt)
+  // stage.container().style.cursor = 'url(/marker.png), auto';
 
   var deckLayer = new Konva.Layer();
   var drawerLayer = new Konva.Layer();
-  drawerLayer.add(tr)
+  drawerLayer.add(tr);
   stage.add(deckLayer);
   stage.add(drawerLayer);
-  stage.on('click', (e) => {
+  stage.on("click", (e) => {
     if (e.target == stage) {
-      return tr.nodes([])
+      return tr.nodes([]);
     }
-  })
-
+  });
 
   // const graphLayer = createGraphLayer(stage.width(), stage.height());
   // stage.add(graphLayer);
-
 
   function startBuilding() {
     const inputStr = (document.getElementById("inputData") as HTMLInputElement)
@@ -63,7 +91,7 @@
 
   #background {
     background-color: #add8e6;
-    background-size: 30px 30px; 
+    background-size: 30px 30px;
     background-image: linear-gradient(
         to right,
         transparent 2px,
@@ -71,9 +99,8 @@
       ),
       linear-gradient(to bottom, transparent 1px, rgba(255, 255, 255, 0.5) 1px);
   }
-
 </style>
 
 <div id="background" class="w-full h-full">
-  <div id="container" class="w-full h-full "></div>
+  <div id="container" class="w-full h-full"></div>
 </div>

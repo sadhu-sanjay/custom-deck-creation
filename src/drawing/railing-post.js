@@ -80,5 +80,5 @@ export const createRailingPost = (x, y, drawerLayer) => {
   textGroup.add(text)
   
   drawerLayer.add(mainGroup, textGroup)
-
+              
 }
