@@ -5,7 +5,7 @@ export function createGraphLayer( stageWidth, stageHeight) {
     const graphLayer = new Konva.Layer()
 
     const xSnaps = Math.round(stageWidth/30)
-    const ySnaps = Math.round(stageHeight/20)
+    const ySnaps = Math.round(stageHeight/30)
     const cellWidth = stageWidth/xSnaps
     const cellHeight = stageHeight/ySnaps
 

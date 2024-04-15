@@ -4,7 +4,7 @@
   import { createRailingPost } from "~/drawing/railing-post";
   import { drawDeck } from "~/drawing/base-deck";
   import { createCapRail } from "~/drawing/cap-rail";
-  import { createGraphLayer } from "~/drawing/graph-background"
+  import { createGraphLayer } from "~/drawing/graph-background";
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -20,14 +20,23 @@
     width: containerWidth,
     height: containerHeight,
   });
-
-  const graphLayer = createGraphLayer(stage.width(), stage.height())
-  stage.add(graphLayer)
+  const tr = new Konva.Transformer()
 
   var deckLayer = new Konva.Layer();
   var drawerLayer = new Konva.Layer();
+  drawerLayer.add(tr)
   stage.add(deckLayer);
   stage.add(drawerLayer);
+  stage.on('click', (e) => {
+    if (e.target == stage) {
+      return tr.nodes([])
+    }
+  })
+
+
+  // const graphLayer = createGraphLayer(stage.width(), stage.height());
+  // stage.add(graphLayer);
+
 
   function startBuilding() {
     const inputStr = (document.getElementById("inputData") as HTMLInputElement)
@@ -37,7 +46,7 @@
 
     createPost(objectDrawerX, boardY, drawerLayer);
     createRailingPost(objectDrawerX, boardY + 50, drawerLayer);
-    createCapRail(objectDrawerX, boardY + 100, drawerLayer);
+    createCapRail(objectDrawerX, boardY + 100, drawerLayer, tr);
   }
 
   const button = document.getElementById("draw-button");
@@ -53,18 +62,18 @@
   }
 
   #background {
-    background-color: #add8e6; /* Light blue color */
-    background-size: 24px 24px; /* Size of each grid square */
+    background-color: #add8e6;
+    background-size: 30px 30px; 
     background-image: linear-gradient(
         to right,
-        transparent 1px,
-        rgba(255, 255, 255, 0.5) 1px
+        transparent 2px,
+        rgba(255, 255, 255, 0.5) 2px
       ),
       linear-gradient(to bottom, transparent 1px, rgba(255, 255, 255, 0.5) 1px);
-    /* Creating grid lines */
   }
+
 </style>
 
-<div id="" class="w-full h-full">
-    <div id="container" class="w-full h-full"></div>
+<div id="background" class="w-full h-full">
+  <div id="container" class="w-full h-full "></div>
 </div>

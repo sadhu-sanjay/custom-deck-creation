@@ -1,4 +1,4 @@
-export const createCapRail = (x, y, drawerLayer) => {
+export const createCapRail = (x, y, drawerLayer, tr) => {
     const rect = new Konva.Rect({
       x: 0,
       y: 0,
@@ -18,7 +18,10 @@ export const createCapRail = (x, y, drawerLayer) => {
     y: y,
     draggable: true,
   });
-
+  mainGroup.on('click', () => {
+    tr.nodes([mainGroup])
+  })
+  
   mainGroup.add(rect)
 
   let startCopyEnabled = false;
@@ -50,7 +53,7 @@ export const createCapRail = (x, y, drawerLayer) => {
     }
 
     if (endCopyEnabled && startCopyEnabled) {
-      createCapRail(x, y, drawerLayer)
+      createCapRail(x, y, drawerLayer, tr)
     }
 
     // Reset flags

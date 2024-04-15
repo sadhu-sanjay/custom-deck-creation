@@ -74,6 +74,16 @@ export const createPost = (x, y, layer) => {
    * END NEW DRAGGABLE GROUP
    */
     
+  /**
+   * Turn Transformable
+   */
+  // const tr1 = new Konva.Transformer({
+  //   nodes: [mainGroup],
+  // })
+  // layer.add(tr1)
+  /**
+   * End Transformable
+   */
 
   /* Secondarly Group */
   const text = new Konva.Text({
