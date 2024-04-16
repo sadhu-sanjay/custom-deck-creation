@@ -1,5 +1,3 @@
-import Konva from "konva";
-
 export const createPost = (x, y, layer) => {
 
   /*main Draggble shapes */
