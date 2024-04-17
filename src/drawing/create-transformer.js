@@ -3,7 +3,7 @@ export function createTransformer(stage) {
   const tr = new Konva.Transformer({
     keepRatio: true,
     rotationSnaps: [0,45,90, 135,180,225, 270, 360],
-    enabledAnchors: ["rotater", "top-center", "bottom-center"],
+    enabledAnchors: ["top-center", "bottom-center"],
     anchorStyleFunc: (anchor) => {
 
       if (anchor.hasName("rotater")) {
