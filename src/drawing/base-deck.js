@@ -1,3 +1,5 @@
+import { feet } from "~/config";
+
 export function drawDeck(inputStr, x, y, startAngle) {
   let currentContextAngle = startAngle;
   let currentContextX = x;
@@ -6,17 +8,8 @@ export function drawDeck(inputStr, x, y, startAngle) {
   var line = new Konva.Line({
     points: [x, y],
     stroke: "black",
-    strokeWidth: 4,
     strokeEnabled: true,
-    fillEnabled: true,
-    shadowEnabled: true,
-    shadowForStrokeEnabled: true,
-    shadowOpacity: 1,
-    shadowOffsetX: 1,
-    shadowOffsetY: 1,
-    shadowColor: "gray",
     lineCap: "round",
-    lineJoin: "round",
     /*
      * line segments with a length of 29px with a gap
      * of 20px followed by a line segment of 0.001px (a dot)
@@ -30,10 +23,12 @@ export function drawDeck(inputStr, x, y, startAngle) {
 
     for (var i = 0; i < values.length; i += 2) {
       var angle = parseFloat(values[i]);
-      var length = parseFloat(values[i + 1]);
+      // since user enters the value in feet and a feet in our app represented by 36px. 
+      // we need to multiple it by our feet
+      var length = parseFloat(values[i + 1]) * feet 
 
       // Convert angle to Radians
-      var angleRadians = ((currentContextAngle + angle) * Math.PI) / 180;
+      var angleRadians = ((currentContextAngle - angle) * Math.PI) / 180;
 
       // Calculate new endpoint coordinates
       var newX = currentContextX + length * Math.cos(angleRadians);
@@ -44,7 +39,7 @@ export function drawDeck(inputStr, x, y, startAngle) {
       // Update current position and angle for the next segment
       currentContextX = newX;
       currentContextY = newY;
-      currentContextAngle += angle;
+      currentContextAngle -= angle;
     }
 
     return line

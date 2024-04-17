@@ -1,20 +1,20 @@
+import { feet } from '~/config'
+
 export const createPost = (x, y, layer) => {
 
   /*main Draggble shapes */
   const rect = new Konva.Rect({
     x: 0,
     y: 0,
-    width: 14,
-    height: 14,
+    width: feet/3,
+    height: feet/3,
     stroke: "gray",
     strokeWidth: 2,
-    offsetX: 7,
-    offsetY: 7,
   });
   const circle = new Konva.Circle({
     x: 0,
     y: 0,
-    radius: 18,
+    radius: feet/2,
     stroke: "gray",
     fill: "white",
   });

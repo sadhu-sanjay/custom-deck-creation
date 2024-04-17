@@ -6,14 +6,15 @@
   import { createCapRail } from "~/drawing/cap-rail";
   import { createGraphLayer } from "~/drawing/graph-background";
   import { createTransformer } from "~/drawing/create-transformer"
+  import { feet } from "~/config"
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
   const containerHeight = containerEl.clientHeight;
-  const boardX = containerWidth * 0.1; // Starting X coordinate
-  const boardY = containerHeight * 0.2; // Starting Y coordinate
+  const boardX = 2 * feet ; // Starting X coordinate
+  const boardY = feet * 4; // Starting Y coordinate
   const startAngle = 0; // Starting angle in degrees
-  var objectDrawerX = containerEl.clientWidth * 0.85;
+  var objectDrawerX = containerEl.clientWidth * 0.8
 
   // Initialize stage and layer
   var stage = new Konva.Stage({
@@ -45,8 +46,8 @@
     deckLayer.add(deck);
 
     createPost(objectDrawerX, boardY, drawerLayer);
-    createRailingPost(objectDrawerX, boardY + 50, drawerLayer);
-    createCapRail(objectDrawerX, boardY + 100, drawerLayer, tr);
+    createRailingPost(objectDrawerX, boardY + (2 * feet), drawerLayer);
+    createCapRail(objectDrawerX, boardY + (3 * feet), drawerLayer, tr);
   }
 
   const button = document.getElementById("draw-button");
@@ -54,6 +55,7 @@
     e.preventDefault();
     startBuilding();
   });
+
 </script>
 
 <style>
@@ -63,7 +65,7 @@
 
   #background {
     background-color: #add8e6;
-    background-size: 30px 30px;
+    background-size: 36px 36px;
     background-image: linear-gradient(
         to right,
         transparent 2px,

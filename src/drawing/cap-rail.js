@@ -2,12 +2,10 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
     const rect = new Konva.Rect({
       x: 0,
       y: 0,
-      width: 14,
-      height: 114,
+      width: 18,
+      height: 36 * 4,
       stroke: "black",
       strokeWidth: 2,
-      offsetX: 7,
-      offsetY: 7,
     });
 
     /**
@@ -20,6 +18,25 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
   });
   mainGroup.on('click', () => {
     tr.nodes([mainGroup])
+  })
+  mainGroup.on('dragmove', () => {
+
+    mainGroup.position({
+      x: Math.round(mainGroup.x() / 18) * 18 ,
+      y: Math.round(mainGroup.y() / 18) * 18 ,
+    })
+  })
+  mainGroup.on('dragend', () => {
+
+    console.log("old ", mainGroup.x())
+
+    console.log( mainGroup.x() / 30 * 30)
+
+    mainGroup.position({
+      x: Math.round(mainGroup.x() / 18) * 18 ,
+      y: Math.round(mainGroup.y() / 18) * 18 
+    })
+
   })
   
   mainGroup.add(rect)

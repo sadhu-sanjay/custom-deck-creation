@@ -1,4 +1,10 @@
-# Astro Starter Kit: Basics
+# Custom Deck Creation
+
+# In this Application each box represents a feet in real life.
+
+# the ratio for pixel:inch is 3px:1Inch.
+so while drawing on building on the board 3px is equals to 1inch.
+since each box equates to a foot. 
 
 ```sh
 npm create astro@latest -- --template basics
