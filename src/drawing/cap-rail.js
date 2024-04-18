@@ -1,27 +1,17 @@
 import { feet } from "~/config";
+import Konva from "konva";
 
-const rectWidth = feet/2
-const rectHeight = feet/2
+const rectWidth = feet / 2
+const rectHeight = feet * 8
 
 export const createCapRail = (x, y, drawerLayer, tr) => {
     const rect = new Konva.Rect({
       x: 0,
       y: 0,
       width: rectWidth,
-      height: rectHeight * 8,
+      height: rectHeight,
       stroke: "black",
       strokeWidth: 2,
-    });
-    var shadowRectangle = new Konva.Rect({
-      x: 0,
-      y: 0,
-      width: rectWidth,
-      height: rectHeight,
-      fill: '#FF7B17',
-      opacity: 0.6,
-      stroke: '#CF6412',
-      strokeWidth: 3,
-      dash: [20, 2]
     });
 
     /**
@@ -35,36 +25,25 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
   mainGroup.on('click', () => {
     tr.nodes([mainGroup])
   })
-  mainGroup.on('dragstart', (e) => {
-    shadowRectangle.show()
-    shadowRectangle.to
-  })
-  mainGroup.on('dragmove', () => {
-
-    mainGroup.position({
-      x: Math.round(mainGroup.x() / 18) * 18 ,
-      y: Math.round(mainGroup.y() / 18) * 18 ,
-    })
-  })
-  mainGroup.on('dragend', () => {
-
-    console.log("old ", mainGroup.x())
-
-    console.log( mainGroup.x() / 30 * 30)
-
-    mainGroup.position({
-      x: Math.round(mainGroup.x() / 18) * 18 ,
-      y: Math.round(mainGroup.y() / 18) * 18 
-    })
-
-  })
   
   mainGroup.add(rect)
 
   let startCopyEnabled = false;
   let endCopyEnabled = false;
 
+  mainGroup.on('dragmove', () => {
+    shadowRectangle.position({
+      x: Math.round(mainGroup.x() / rectWidth) * rectWidth ,
+      y: Math.round(mainGroup.y() / rectWidth) * rectWidth ,
+    })
+  })
   mainGroup.on("dragstart", (e) => {
+
+    // shadow Rectangle
+    shadowRectangle.show();
+    shadowRectangle.moveToTop();
+    mainGroup.moveToTop();
+
     const target = e.target;
     const position = target.getAbsolutePosition();
     const { x: targetX, y: targetY } = position;
@@ -75,6 +54,15 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
   });
 
   mainGroup.on("dragend", (e) => {
+
+    // shadow Rectangle
+    mainGroup.position({
+      x: Math.round(mainGroup.x() / rectWidth) * rectWidth,
+      y: Math.round(mainGroup.y() / rectWidth) * rectWidth 
+    })
+    shadowRectangle.position = mainGroup.position
+    shadowRectangle.hide()
+
     const target = e.target;
     const position = target.getAbsolutePosition();
     const { x: targetX } = position;
@@ -117,5 +105,5 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
     });
     textGroup.add(text)
   
-    drawerLayer.add(mainGroup, textGroup);
+    drawerLayer.add(mainGroup, textGroup, shadowRectangle);
   };
