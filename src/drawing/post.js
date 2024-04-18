@@ -11,13 +11,15 @@ export const createPost = (x, y, layer) => {
     width: rectWidth,
     height: rectHeight,
     stroke: "gray",
+    offsetX: -rectWidth/2,
+    offsetY: -rectHeight/2,
   });
   const circle = new Konva.Circle({
     x: 0,
     y: 0,
     radius: rectWidth,
-    offsetX: -rectWidth/2,
-    offsetY: -rectWidth/2,
+    offsetX: -rectWidth,
+    offsetY: -rectHeight,
     stroke: "gray",
   });
 
@@ -91,8 +93,8 @@ export const createPost = (x, y, layer) => {
     y: 0,
     text: "Post",
     draggable: false,
-    offsetX: -30,
-    offsetY: 8,
+    offsetX: -feet * 1.5,
+    offsetY: -rectWidth/2,
     fontSize: 18,
   });
   const textGroup = new Konva.Group({

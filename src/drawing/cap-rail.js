@@ -8,7 +8,7 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
       x: 0,
       y: 0,
       width: rectWidth,
-      height: rectHeight,
+      height: rectHeight * 8,
       stroke: "black",
       strokeWidth: 2,
     });
