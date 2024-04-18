@@ -1,19 +1,22 @@
 import { feet } from "~/config";
 
+const rectWidth = feet/2
+const rectHeight = feet/2
+
 export const createCapRail = (x, y, drawerLayer, tr) => {
     const rect = new Konva.Rect({
       x: 0,
       y: 0,
-      width: feet / 2,
-      height: feet * 4,
+      width: rectWidth,
+      height: rectHeight,
       stroke: "black",
       strokeWidth: 2,
     });
     var shadowRectangle = new Konva.Rect({
       x: 0,
       y: 0,
-      width: feet / 2,
-      height: feet * 4,
+      width: rectWidth,
+      height: rectHeight,
       fill: '#FF7B17',
       opacity: 0.6,
       stroke: '#CF6412',
@@ -105,8 +108,7 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
       x: 0,
       y: 0,
       text: "Cap Rail",
-      offsetX: -30,
-      offsetY: 8,
+      offsetX: -feet,
       fontSize: 18,
     });
     const textGroup = new Konva.Group({

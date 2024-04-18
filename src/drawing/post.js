@@ -11,13 +11,13 @@ export const createPost = (x, y, layer) => {
     width: rectWidth,
     height: rectHeight,
     stroke: "gray",
-    offsetX: rectWidth/2,
-    offsetY: rectHeight/2
   });
   const circle = new Konva.Circle({
     x: 0,
     y: 0,
     radius: rectWidth,
+    offsetX: -rectWidth/2,
+    offsetY: -rectWidth/2,
     stroke: "gray",
   });
 

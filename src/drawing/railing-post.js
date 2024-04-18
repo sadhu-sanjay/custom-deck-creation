@@ -1,15 +1,15 @@
+import { feet } from "~/config";
 
 export const createRailingPost = (x, y, drawerLayer) => {
+  const rectWidth = feet/2
+  const rectHeight = feet/2
+
   const rect = new Konva.Rect({
     x: 0,
     y: 0,
-    width: 14,
-    height: 14,
-    stroke: "black",
+    width: rectWidth,
+    height: rectHeight,
     fill: 'black',
-    strokeWidth: 2,
-    offsetX: 7,
-    offsetY: 7,
   });
 
   /**
@@ -69,8 +69,8 @@ export const createRailingPost = (x, y, drawerLayer) => {
     x: 0,
     y: 0,
     text: "Railing Post",
-    offsetX: -30,
-    offsetY: 8,
+    offsetX: -feet,
+    offsetY: 0,
     fontSize: 18,
   });
   const textGroup = new Konva.Group({
