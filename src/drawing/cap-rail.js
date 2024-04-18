@@ -1,11 +1,24 @@
+import { feet } from "~/config";
+
 export const createCapRail = (x, y, drawerLayer, tr) => {
     const rect = new Konva.Rect({
       x: 0,
       y: 0,
-      width: 18,
-      height: 36 * 4,
+      width: feet / 2,
+      height: feet * 4,
       stroke: "black",
       strokeWidth: 2,
+    });
+    var shadowRectangle = new Konva.Rect({
+      x: 0,
+      y: 0,
+      width: feet / 2,
+      height: feet * 4,
+      fill: '#FF7B17',
+      opacity: 0.6,
+      stroke: '#CF6412',
+      strokeWidth: 3,
+      dash: [20, 2]
     });
 
     /**
@@ -18,6 +31,10 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
   });
   mainGroup.on('click', () => {
     tr.nodes([mainGroup])
+  })
+  mainGroup.on('dragstart', (e) => {
+    shadowRectangle.show()
+    shadowRectangle.to
   })
   mainGroup.on('dragmove', () => {
 

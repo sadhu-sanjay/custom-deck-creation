@@ -3,20 +3,22 @@ import { feet } from '~/config'
 export const createPost = (x, y, layer) => {
 
   /*main Draggble shapes */
+  const rectWidth = feet/2
+  const rectHeight = feet/2
   const rect = new Konva.Rect({
     x: 0,
     y: 0,
-    width: feet/3,
-    height: feet/3,
+    width: rectWidth,
+    height: rectHeight,
     stroke: "gray",
-    strokeWidth: 2,
+    offsetX: rectWidth/2,
+    offsetY: rectHeight/2
   });
   const circle = new Konva.Circle({
     x: 0,
     y: 0,
-    radius: feet/2,
+    radius: rectWidth,
     stroke: "gray",
-    fill: "white",
   });
 
   /**

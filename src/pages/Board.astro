@@ -14,7 +14,10 @@
   const boardX = 2 * feet ; // Starting X coordinate
   const boardY = feet * 4; // Starting Y coordinate
   const startAngle = 0; // Starting angle in degrees
-  var objectDrawerX = containerEl.clientWidth * 0.8
+  
+  var objectDrawerX = (Math.round((containerEl.clientWidth * 0.8) / feet) * feet)
+
+  console.log(objectDrawerX)
 
   // Initialize stage and layer
   var stage = new Konva.Stage({
