@@ -1,6 +1,7 @@
+import Konva from 'konva';
 import { feet, halfFeet } from '~/config'
 
-export const createPost = (x, y, layer) => {
+export const Post = (x, y, layer) => {
 
   /*main Draggble shapes */
   const rectWidth = halfFeet
@@ -103,5 +104,12 @@ export const createPost = (x, y, layer) => {
   });
   textGroup.add(text)
 
-  layer.add(mainGroup, textGroup);
+  const group = new Konva.Group({
+    x: x,
+    y: y,
+  })
+
+  group.add(mainGroup, textGroup)
+
+  return group
 };

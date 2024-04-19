@@ -1,21 +1,20 @@
 <script>
   import Konva from "konva";
-  import { createPost } from "~/drawing/post";
-  import { createRailingPost } from "~/drawing/railing-post";
   import { drawDeck } from "~/drawing/base-deck";
-  import { createCapRail } from "~/drawing/cap-rail";
+  import { createTransformer } from "~/drawing/create-transformer";
+  import { feet, halfFeet } from "~/config";
   import { createGraphLayer } from "~/drawing/graph-background";
-  import { createTransformer } from "~/drawing/create-transformer"
-  import { feet, halfFeet } from "~/config"
+  import { createStageSidebar } from "~/drawing/stage-sidebar"
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
   const containerHeight = containerEl.clientHeight;
-  const boardX = 2 * feet() ; // Starting X coordinate
+  const boardX = 2 * feet(); // Starting X coordinate
   const boardY = feet() * 4; // Starting Y coordinate
   const startAngle = 0; // Starting angle in degrees
-  
-  var objectDrawerX = (Math.round((containerEl.clientWidth * 0.8) / feet()) * feet())
+
+  var objectDrawerX =
+    Math.round((containerEl.clientWidth * 0.8) / feet()) * feet();
 
   // Initialize stage and layer
   var stage = new Konva.Stage({
@@ -24,18 +23,23 @@
     height: containerHeight,
   });
 
-  const tr = createTransformer(stage)
 
   var deckLayer = new Konva.Layer();
   var drawerLayer = new Konva.Layer();
-  drawerLayer.add(tr);
   stage.add(deckLayer);
   stage.add(drawerLayer);
-  stage.on("click", (e) => {
-    if (e.target == stage) {
-      return tr.nodes([]);
-    }
-  });
+
+  // Add click event listener to stage
+  // stage.on("click", (e) => {
+  //   // Iterate through all transformers on the stage
+  //   stage.find("Transformer").each((transformer) => {
+  //     // Check if the transformer is active
+  //     if (transformer.nodes().length > 0) {
+  //       // Deactivate the transformer by clearing its nodes
+  //       transformer.nodes([]); // This will make the transformer inactive
+  //     }
+  //   });
+  // });
 
   // const graphLayer = createGraphLayer(stage.width(), stage.height());
   // stage.add(graphLayer);
@@ -46,19 +50,16 @@
     const deck = drawDeck(inputStr, boardX, boardY, startAngle);
     deckLayer.add(deck);
 
-    createPost(objectDrawerX, boardY, drawerLayer);
-    createRailingPost(objectDrawerX + halfFeet, boardY + feet(1.5), drawerLayer);
-    createCapRail(objectDrawerX , boardY + feet(2.5), drawerLayer, tr);
+    createStageSidebar(objectDrawerX, boardY, stage, drawerLayer)
   }
 
-  startBuilding()
+  startBuilding();
 
   const button = document.getElementById("draw-button");
   button.addEventListener("click", (e) => {
     e.preventDefault();
     startBuilding();
   });
-
 </script>
 
 <style>

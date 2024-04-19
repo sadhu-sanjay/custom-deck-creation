@@ -1,10 +1,15 @@
 import { feet, halfFeet } from "~/config";
 import Konva from "konva";
+import { createTransformer } from "./create-transformer";
 
 const rectWidth = halfFeet
 const rectHeight = feet(4)
 
-export const createCapRail = (x, y, drawerLayer, tr) => {
+export const createCapRail = (x, y, stage, drawerLayer) => {
+
+    const tr = createTransformer(stage)
+    drawerLayer.add(tr)
+
     const rect = new Konva.Rect({
       x: 0,
       y: 0,
