@@ -49,9 +49,11 @@
     deckLayer.add(deck);
 
     createPost(objectDrawerX, boardY, drawerLayer);
-    createRailingPost(objectDrawerX, boardY + (2 * feet), drawerLayer);
+    createRailingPost(objectDrawerX + feet/2, boardY + (feet + feet/2), drawerLayer);
     createCapRail(objectDrawerX, boardY + (3 * feet), drawerLayer, tr);
   }
+
+  startBuilding()
 
   const button = document.getElementById("draw-button");
   button.addEventListener("click", (e) => {
