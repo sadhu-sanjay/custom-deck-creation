@@ -1,8 +1,8 @@
-import { feet } from "~/config";
+import { feet, halfFeet } from "~/config";
 import Konva from "konva";
 
-const rectWidth = feet / 2
-const rectHeight = feet * 4
+const rectWidth = halfFeet
+const rectHeight = feet(4)
 
 export const createCapRail = (x, y, drawerLayer, tr) => {
     const rect = new Konva.Rect({
@@ -108,7 +108,7 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
       x: 0,
       y: 0,
       text: "Cap Rail",
-      offsetX: -feet,
+      offsetX: -feet(),
       fontSize: 18,
     });
     const textGroup = new Konva.Group({

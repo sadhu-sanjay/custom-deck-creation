@@ -1,10 +1,10 @@
-import { feet } from '~/config'
+import { feet, halfFeet } from '~/config'
 
 export const createPost = (x, y, layer) => {
 
   /*main Draggble shapes */
-  const rectWidth = feet/2
-  const rectHeight = feet/2
+  const rectWidth = halfFeet
+  const rectHeight = halfFeet
   const rect = new Konva.Rect({
     x: 0,
     y: 0,
@@ -93,7 +93,7 @@ export const createPost = (x, y, layer) => {
     y: 0,
     text: "Post",
     draggable: false,
-    offsetX: -feet * 1.5,
+    offsetX: -feet(1.5),
     offsetY: -rectWidth/2,
     fontSize: 18,
   });

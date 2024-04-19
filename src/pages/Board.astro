@@ -11,13 +11,11 @@
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
   const containerHeight = containerEl.clientHeight;
-  const boardX = 2 * feet ; // Starting X coordinate
-  const boardY = feet * 4; // Starting Y coordinate
+  const boardX = 2 * feet() ; // Starting X coordinate
+  const boardY = feet() * 4; // Starting Y coordinate
   const startAngle = 0; // Starting angle in degrees
   
-  var objectDrawerX = (Math.round((containerEl.clientWidth * 0.8) / feet) * feet)
-
-  console.log(objectDrawerX)
+  var objectDrawerX = (Math.round((containerEl.clientWidth * 0.8) / feet()) * feet())
 
   // Initialize stage and layer
   var stage = new Konva.Stage({
@@ -49,8 +47,8 @@
     deckLayer.add(deck);
 
     createPost(objectDrawerX, boardY, drawerLayer);
-    createRailingPost(objectDrawerX + halfFeet, boardY + (feet + feet/2), drawerLayer);
-    createCapRail(objectDrawerX, boardY + (2 * feet/2), drawerLayer, tr);
+    createRailingPost(objectDrawerX + halfFeet, boardY + feet(1.5), drawerLayer);
+    createCapRail(objectDrawerX , boardY + feet(2.5), drawerLayer, tr);
   }
 
   startBuilding()

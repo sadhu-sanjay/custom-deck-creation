@@ -1,8 +1,8 @@
-import { feet } from "~/config";
+import { feet, fourInches } from "~/config";
 
 export const createRailingPost = (x, y, drawerLayer) => {
-  const rectWidth = feet/3
-  const rectHeight = feet/3
+  const rectWidth = feet(1/3)
+  const rectHeight = feet(1/3)
 
   const rect = new Konva.Rect({
     x: 0,
@@ -71,8 +71,8 @@ export const createRailingPost = (x, y, drawerLayer) => {
     x: 0,
     y: 0,
     text: "Railing Post",
-    offsetX: -feet,
-    offsetY: feet/4,
+    offsetX: -feet(),
+    offsetY: fourInches,
     fontSize: 18,
   });
   const textGroup = new Konva.Group({

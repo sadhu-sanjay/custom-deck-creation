@@ -25,7 +25,7 @@ export function drawDeck(inputStr, x, y, startAngle) {
       var angle = parseFloat(values[i]);
       // since user enters the value in feet and a feet in our app represented by 36px. 
       // we need to multiple it by our feet
-      var length = parseFloat(values[i + 1]) * feet 
+      var length = parseFloat(values[i + 1]) * feet() 
 
       // Convert angle to Radians
       var angleRadians = ((currentContextAngle - angle) * Math.PI) / 180;
