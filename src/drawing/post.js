@@ -1,7 +1,7 @@
 import Konva from 'konva';
 import { feet, halfFeet } from '~/config'
 
-export const Post = (x, y, layer) => {
+export const Post = (x, y) => {
 
   /*main Draggble shapes */
   const rectWidth = halfFeet
@@ -27,18 +27,15 @@ export const Post = (x, y, layer) => {
   /**
    * CREATE NEW DRAGGABLE GROUP */ 
 
-  const mainGroup = new Konva.Group({
-    x: x,
-    y: y,
+  const objectGroup = new Konva.Group({
     draggable: true,
   });
 
-  mainGroup.add(circle, rect)
 
   let startCopyEnabled = false;
   let endCopyEnabled = false;
 
-  mainGroup.on("dragstart", (e) => {
+  objectGroup.on("dragstart", (e) => {
     const target = e.target;
     const position = target.getAbsolutePosition();
     const { x: targetX, y: targetY } = position;
@@ -48,7 +45,7 @@ export const Post = (x, y, layer) => {
     }
   });
 
-  mainGroup.on("dragend", (e) => {
+  objectGroup.on("dragend", (e) => {
     const target = e.target;
     const position = target.getAbsolutePosition();
     const { x: targetX } = position;
@@ -63,7 +60,9 @@ export const Post = (x, y, layer) => {
       });
     }
 
+    console.log("enb", endCopyEnabled, startCopyEnabled)
     if (endCopyEnabled && startCopyEnabled) {
+      alert("Enabled")
       createPost(x, y, layer)
     }
 
@@ -94,22 +93,25 @@ export const Post = (x, y, layer) => {
     y: 0,
     text: "Post",
     draggable: false,
-    offsetX: -feet(1.5),
-    offsetY: -rectWidth/2,
+    // offsetX: -feet(1.5),
+    // offsetY: -rectWidth/2,
     fontSize: 18,
   });
   const textGroup = new Konva.Group({
-    x: x,
-    y: y,
+    x: feet(1.2),
+    y: feet(1/4)
   });
-  textGroup.add(text)
 
   const group = new Konva.Group({
     x: x,
     y: y,
   })
 
-  group.add(mainGroup, textGroup)
+  objectGroup.add(circle, rect)
+  textGroup.add(text)
+
+  group.add(objectGroup, textGroup)
+
 
   return group
 };

@@ -4,7 +4,8 @@
   import { createTransformer } from "~/drawing/create-transformer";
   import { feet, halfFeet } from "~/config";
   import { createGraphLayer } from "~/drawing/graph-background";
-  import { createStageSidebar } from "~/drawing/stage-sidebar"
+  import { createStageSidebar } from "~/drawing/stage-sidebar";
+  import { Group } from "konva/lib/Group";
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -22,7 +23,6 @@
     width: containerWidth,
     height: containerHeight,
   });
-
 
   var deckLayer = new Konva.Layer();
   var drawerLayer = new Konva.Layer();
@@ -50,7 +50,7 @@
     const deck = drawDeck(inputStr, boardX, boardY, startAngle);
     deckLayer.add(deck);
 
-    createStageSidebar(objectDrawerX, boardY, stage, drawerLayer)
+    createStageSidebar(objectDrawerX, boardY, stage, drawerLayer);
   }
 
   startBuilding();

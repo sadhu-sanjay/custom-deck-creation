@@ -18,6 +18,5 @@ export const createStageSidebar = (x, y, stage, layer) => {
   })
   group.add(post)
 
-
   layer.add(group)
 };
