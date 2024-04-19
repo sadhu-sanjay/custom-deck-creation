@@ -2,7 +2,7 @@ import { feet } from "~/config";
 import Konva from "konva";
 
 const rectWidth = feet / 2
-const rectHeight = feet * 8
+const rectHeight = feet * 4
 
 export const createCapRail = (x, y, drawerLayer, tr) => {
     const rect = new Konva.Rect({
@@ -13,6 +13,18 @@ export const createCapRail = (x, y, drawerLayer, tr) => {
       stroke: "black",
       strokeWidth: 2,
     });
+    var shadowRectangle = new Konva.Rect({
+      x: x,
+      y: y,
+      width: rectWidth,
+      height: rectHeight,
+      fill: '#FF7B17',
+      opacity: 0.6,
+      stroke: '#CF6412',
+      strokeWidth: 3,
+      dash: [20, 2]
+    });
+    shadowRectangle.hide()
 
     /**
    * CREATE NEW DRAGGABLE GROUP */ 

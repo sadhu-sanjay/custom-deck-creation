@@ -6,7 +6,7 @@
   import { createCapRail } from "~/drawing/cap-rail";
   import { createGraphLayer } from "~/drawing/graph-background";
   import { createTransformer } from "~/drawing/create-transformer"
-  import { feet } from "~/config"
+  import { feet, halfFeet } from "~/config"
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -49,8 +49,8 @@
     deckLayer.add(deck);
 
     createPost(objectDrawerX, boardY, drawerLayer);
-    createRailingPost(objectDrawerX + feet/2, boardY + (feet + feet/2), drawerLayer);
-    createCapRail(objectDrawerX, boardY + (3 * feet), drawerLayer, tr);
+    createRailingPost(objectDrawerX + halfFeet, boardY + (feet + feet/2), drawerLayer);
+    createCapRail(objectDrawerX, boardY + (2 * feet/2), drawerLayer, tr);
   }
 
   startBuilding()
