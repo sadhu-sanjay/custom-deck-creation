@@ -1,9 +1,25 @@
 import Konva from 'konva';
 import { feet, halfFeet } from '~/config'
 
-export const Post = (x, y) => {
+export const Post = (x, y, stageSidebarX, stageSidebarY, group) => {
 
   /*main Draggble shapes */
+  const objectGroup = new Konva.Group({
+    draggable: true,
+  });
+
+  const textGroup = new Konva.Group({
+    x: feet(1.2),
+    y: feet(1/4)
+  });
+
+  const mainGroup = new Konva.Group({
+    x: x,
+    y: y,
+  })
+
+  mainGroup.add(objectGroup, textGroup)
+
   const rectWidth = halfFeet
   const rectHeight = halfFeet
   const rect = new Konva.Rect({
@@ -23,14 +39,7 @@ export const Post = (x, y) => {
     offsetY: -rectHeight,
     stroke: "gray",
   });
-
-  /**
-   * CREATE NEW DRAGGABLE GROUP */ 
-
-  const objectGroup = new Konva.Group({
-    draggable: true,
-  });
-
+  objectGroup.add(circle, rect)
 
   let startCopyEnabled = false;
   let endCopyEnabled = false;
@@ -40,17 +49,18 @@ export const Post = (x, y) => {
     const position = target.getAbsolutePosition();
     const { x: targetX, y: targetY } = position;
 
-    if (targetX === x && targetY === y) {
+    if (targetX === stageSidebarX && targetY === stageSidebarY) {
       startCopyEnabled = true;
     }
+
   });
 
   objectGroup.on("dragend", (e) => {
     const target = e.target;
     const position = target.getAbsolutePosition();
-    const { x: targetX } = position;
+    const { x: targetX, y: targetY } = position;
 
-    if (targetX < x) {
+    if (targetX < stageSidebarX) {
       endCopyEnabled = true;
     } else {
       target.to({
@@ -60,10 +70,19 @@ export const Post = (x, y) => {
       });
     }
 
-    console.log("enb", endCopyEnabled, startCopyEnabled)
     if (endCopyEnabled && startCopyEnabled) {
-      alert("Enabled")
-      createPost(x, y, layer)
+
+      console.log(group.position().x)
+      console.log(group.position().y)
+
+      const clone = mainGroup.clone({
+        x: group.position().x,
+        y: group.position().y
+      })
+      console.log("Clone", clone)
+
+      group.add(clone)
+
     }
 
     // Reset flags
@@ -97,21 +116,7 @@ export const Post = (x, y) => {
     // offsetY: -rectWidth/2,
     fontSize: 18,
   });
-  const textGroup = new Konva.Group({
-    x: feet(1.2),
-    y: feet(1/4)
-  });
-
-  const group = new Konva.Group({
-    x: x,
-    y: y,
-  })
-
-  objectGroup.add(circle, rect)
   textGroup.add(text)
 
-  group.add(objectGroup, textGroup)
-
-
-  return group
+  group.add(mainGroup)
 };
