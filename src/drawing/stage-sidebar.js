@@ -20,10 +20,10 @@ export const createStageSidebar = (x, y, stage, layer) => {
     y: y,
     width: 36,
     height: 36,
-    fill: 'red',
-    draggable: true
-  })
-
+    fill: "red",
+    draggable: true,
+    name: "post",
+  });
 
   layer.add(rect)
 };

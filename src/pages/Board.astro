@@ -15,7 +15,7 @@
   const boardY = feet() * 4; // Starting Y coordinate
   const startAngle = 0; // Starting angle in degrees
 
-  var objectDrawerX = Math.round((containerEl.clientWidth * 0.8) / feet()) * feet();
+  var sideBarX = Math.round((containerEl.clientWidth * 0.8) / feet()) * feet();
 
   // Initialize stage and layer
   var stage = new Konva.Stage({
@@ -23,10 +23,15 @@
     width: containerWidth,
     height: containerHeight,
   });
-  stageDragListener(stage)
+  stageDragListener(stage, sideBarX, boardY)
 
-  var deckLayer = new Konva.Layer();
-  var drawerLayer = new Konva.Layer();
+  var deckLayer = new Konva.Layer({
+    name: 'deckLayer'
+  });
+  var drawerLayer = new Konva.Layer({
+    name: 'drawerLayer'
+  });
+
   stage.add(deckLayer);
   stage.add(drawerLayer);
 
@@ -46,12 +51,12 @@
   // stage.add(graphLayer);
 
   function startBuilding() {
-    const inputStr = (document.getElementById("inputData") as HTMLInputElement)
-      .value;
-    const deck = drawDeck(inputStr, boardX, boardY, startAngle);
-    deckLayer.add(deck);
+    // const inputStr = (document.getElementById("inputData") as HTMLInputElement)
+    //   .value;
+    // const deck = drawDeck(inputStr, boardX, boardY, startAngle);
+    // deckLayer.add(deck);
 
-    createStageSidebar(objectDrawerX, boardY, stage, drawerLayer);
+    createStageSidebar(sideBarX, boardY, stage, drawerLayer);
   }
 
   startBuilding();
