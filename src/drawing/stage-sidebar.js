@@ -4,26 +4,31 @@ import { createCapRail } from "~/drawing/cap-rail";
 import { scaleArrow } from "~/drawing/scale-arrow";
 import { feet } from "~/config";
 
-export const createStageSidebar = (x, y, stage, layer) => {
+export const createStageSidebar = (sidebarX, sidebarY) => {
   
-  const stageSideBarX = x
-  const stageSideBarY = y
-
 //   createRailingPost(0 + feet(1/2), y + feet(1.5), layer);
 //   createCapRail(0, y + feet(2.5), stage, layer);
 //   scaleArrow(0 , (y + feet(4)), layer);
 
+  let group = new Konva.Group({
+    x: sidebarX,
+    y: sidebarY,
+    id: 'sidebarGroup',
+    name: 'Sidebar Group'
+  })
 
   // Post(0, 0, stageSideBarX, stageSideBarY, group);
   let rect = new Konva.Rect({
-    x: x,
-    y: y,
+    x: 0,
+    y: 0,
     width: 36,
     height: 36,
     fill: "red",
     draggable: true,
-    name: "post",
+    name: "Post",
+    id: 'post'
   });
+  group.add(rect)
 
-  layer.add(rect)
+  return group 
 };

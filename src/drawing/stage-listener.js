@@ -1,36 +1,39 @@
+import Konva from "konva";
 
 export function stageDragListener(stage, sidebarX, sidebarY) {
 
-    let dragStartObj; // the object which got dragged
-    let sideBarShapes = ['Rect', 'Circle']
+    let draggableShapes = ['Post'] // shapes which are allowed to be copied
+    let startPosRel; // relative Start Position
+    let shouldClone = false;
 
     stage.on('dragstart', (e) => {
-        console.log("Here", e.target.name())
-        // only Clone the object if it is in the on of the allowed shapes
-        if (sideBarShapes.includes(e.target.className)) {
-            dragStartObj = e.target
+        const targetName = e.target.name()
+        const targetPos = e.target.absolutePosition()
+        startPosRel = e.target.position() /// realtive 
 
+        if (draggableShapes.includes(targetName) && targetPos.x >= sidebarX){
+          shouldClone = true
+          console.log("Should clone")
         }
     })
 
     stage.on("dragend", (e) => {
 
-      const drawerLayer = stage.find(".drawerLayer")[0];
+      let sidebarGroup = stage.find('#sidebarGroup')[0]
+      const droppedPosRel = e.target.position()
 
-      const stoppedDragging = e.target.className;
-      if (stoppedDragging === dragStartObj.className) {
-
-        // Create a copy of the dragged shape outside the sidebar
-        const target = e.target
-        const clone = target.clone({
-            x: sidebarX,
-            y: sidebarY
-        })
-
-        drawerLayer.add(clone);
+      if (shouldClone && droppedPosRel.x < startPosRel.x) {
+        const clone = e.target.clone(startPosRel);
+        sidebarGroup.add(clone);
+      } else if (e.target.absolutePosition().x > sidebarX) {
+        e.target.to({
+          ...startPosRel,
+          duration: 0.2,
+        });
       }
 
-      dragStartObj = null;
+      // reset Flag
+      shouldClone = false
     });
 
 }
