@@ -1,4 +1,3 @@
-import Konva from "konva";
 
 export function stageDragListener(stage, sidebarX, sidebarY) {
 
@@ -11,9 +10,8 @@ export function stageDragListener(stage, sidebarX, sidebarY) {
         const targetPos = e.target.absolutePosition()
         startPosRel = e.target.position() /// realtive 
 
-        if (draggableShapes.includes(targetName) && targetPos.x >= sidebarX){
+        if (draggableShapes.includes(targetName) && targetPos.x >= sidebarX ){
           shouldClone = true
-          console.log("Should clone")
         }
     })
 

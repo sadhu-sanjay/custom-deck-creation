@@ -1,11 +1,12 @@
 import Konva from 'konva';
 import { feet, halfFeet } from '~/config'
 
-export const Post = (x, y, stageSidebarX, stageSidebarY, group) => {
+export const Post = (x, y) => {
 
   /*main Draggble shapes */
   const objectGroup = new Konva.Group({
     draggable: true,
+    name: 'Post',
   });
 
   const textGroup = new Konva.Group({
@@ -68,5 +69,5 @@ export const Post = (x, y, stageSidebarX, stageSidebarY, group) => {
   });
   textGroup.add(text)
 
-  group.add(mainGroup)
+  return mainGroup
 };
