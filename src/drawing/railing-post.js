@@ -22,7 +22,6 @@ export const createRailingPost = (x, y) => {
   });
   objectGroup.add(rect)
 
-
   /**
    * END NEW DRAGGABLE GROUP
    */

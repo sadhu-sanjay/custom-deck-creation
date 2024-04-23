@@ -49,10 +49,10 @@ import Sidebar from "~/components/organisms/Sidebar.astro";
   // stage.add(graphLayer);
 
   function startBuilding() {
-    // const inputStr = (document.getElementById("inputData") as HTMLInputElement)
-    //   .value;
-    // const deck = drawDeck(inputStr, boardX, boardY, startAngle);
-    // deckLayer.add(deck);
+    const inputStr = (document.getElementById("inputData") as HTMLInputElement)
+      .value;
+    const deck = drawDeck(inputStr, boardX, boardY, startAngle);
+    deckLayer.add(deck);
 
     const groupSidebar = createStageSidebar(sideBarX, sideBarY);
     sidebarLayer.add(groupSidebar)

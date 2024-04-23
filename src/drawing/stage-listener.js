@@ -1,7 +1,7 @@
 
 export function stageDragListener(stage, sidebarX, sidebarY) {
 
-    let draggableShapes = ['Post', 'railing-post'] // shapes which are allowed to be copied
+    let draggableShapes = ['Post', 'railing-post', 'cap-rail'] // shapes which are allowed to be copied
     let startPosRel; // relative Start Position
     let startPosAbs = false;
     let shouldClone = false;
