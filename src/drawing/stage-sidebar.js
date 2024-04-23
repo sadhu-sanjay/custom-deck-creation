@@ -2,11 +2,10 @@ import { Post } from "~/drawing/post";
 import { createRailingPost } from "~/drawing/railing-post";
 import { createCapRail } from "~/drawing/cap-rail";
 import { scaleArrow } from "~/drawing/scale-arrow";
-import { feet } from "~/config";
+import { feet, halfFeet } from "~/config";
 
 export const createStageSidebar = (sidebarX, sidebarY) => {
 
-//   createRailingPost(0 + feet(1/2), y + feet(1.5), layer);
 //   createCapRail(0, y + feet(2.5), stage, layer);
 //   scaleArrow(0 , (y + feet(4)), layer);
 
@@ -18,7 +17,9 @@ export const createStageSidebar = (sidebarX, sidebarY) => {
   })
 
   const post = Post(0, 0);
-  group.add(post)
+  const railingPost = createRailingPost(halfFeet, feet(1.5));
+
+  group.add(post, railingPost)
 
   return group 
 };

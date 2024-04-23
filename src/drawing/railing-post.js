@@ -1,66 +1,27 @@
-import { feet, fourInches } from "~/config";
+import { feet } from "~/config";
+import Konva from "konva";
 
-export const createRailingPost = (x, y, drawerLayer) => {
-  const rectWidth = feet(1/3)
-  const rectHeight = feet(1/3)
+export const createRailingPost = (x, y) => {
+
+  const postWidth = feet(1/2)
+  const postHeight = feet(1/2)
 
   const rect = new Konva.Rect({
-    x: 0,
-    y: 0,
-    width: rectWidth,
-    height: rectHeight,
+    width: postWidth,
+    height: postHeight,
     fill: 'black',
-    offsetX: rectWidth/2,
-    offsetY: rectWidth/2
   });
 
   /**
    * CREATE NEW DRAGGABLE GROUP */ 
-  const mainGroup = new Konva.Group({
-    x: x,
-    y: y,
+  const objectGroup = new Konva.Group({
     draggable: true,
+    offsetX: postWidth/2,
+    offsetY: postWidth/2,
+    name: 'railing-post'
   });
+  objectGroup.add(rect)
 
-  mainGroup.add(rect)
-
-  let startCopyEnabled = false;
-  let endCopyEnabled = false;
-
-  mainGroup.on("dragstart", (e) => {
-    const target = e.target;
-    const position = target.getAbsolutePosition();
-    const { x: targetX, y: targetY } = position;
-
-    if (targetX === x && targetY === y) {
-      startCopyEnabled = true;
-    }
-  });
-
-  mainGroup.on("dragend", (e) => {
-    const target = e.target;
-    const position = target.getAbsolutePosition();
-    const { x: targetX } = position;
-
-    if (targetX < x) {
-      endCopyEnabled = true;
-    } else {
-      target.to({
-        x: x,
-        y: y,
-        duration: 0.2,
-      });
-    }
-
-    if (endCopyEnabled && startCopyEnabled) {
-      createRailingPost(x, y, drawerLayer)
-    }
-
-    // Reset flags
-    endCopyEnabled = false;
-    startCopyEnabled = false;
-
-  });
 
   /**
    * END NEW DRAGGABLE GROUP
@@ -68,19 +29,21 @@ export const createRailingPost = (x, y, drawerLayer) => {
   
   /* Secondarly Group */
   const text = new Konva.Text({
-    x: 0,
-    y: 0,
     text: "Railing Post",
-    offsetX: -feet(),
-    offsetY: fourInches,
     fontSize: 18,
   });
+
   const textGroup = new Konva.Group({
-    x: x,
-    y: y,
-  });
+    offsetX: -feet(3/4),
+    offsetY: text.getTextHeight()/2
+  })
   textGroup.add(text)
   
-  drawerLayer.add(mainGroup, textGroup)
-              
+  const mainGroup = new Konva.Group({
+    x: x,
+    y: y,
+  })
+  mainGroup.add(objectGroup, textGroup)
+
+  return mainGroup
 }
