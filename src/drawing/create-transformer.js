@@ -1,4 +1,4 @@
-export function createTransformer(stage) {
+export function createTransformer() {
 
   const tr = new Konva.Transformer({
     keepRatio: true,
