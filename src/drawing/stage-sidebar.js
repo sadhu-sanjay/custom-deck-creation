@@ -17,7 +17,7 @@ export const createStageSidebar = (sidebarX, sidebarY) => {
   })
 
   const post = Post(0, 0);
-  const railingPost = createRailingPost(halfFeet, feet(1.5));
+  const railingPost = createRailingPost(0, feet(1.5));
   
   const tranformerConfig = createTransformer()
   const capRail = createCapRail(0, feet(2.5));

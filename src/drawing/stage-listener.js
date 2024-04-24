@@ -1,3 +1,4 @@
+import { fourInches, halfFeet } from "~/config";
 
 export function stageDragListener(stage, sidebarX, sidebarY) {
 
@@ -12,11 +13,24 @@ export function stageDragListener(stage, sidebarX, sidebarY) {
         startPosAbs = e.target.absolutePosition()
         startPosRel = e.target.position() /// realtive 
 
-        console.log("Parent REL", e.target.getParent().position())
-
         if (draggableShapes.includes(targetName) && startPosAbs.x >= sidebarX ){
           shouldClone = true
         }
+    })
+
+    stage.on('dragmove', (e) => {
+
+      const baseWidth = fourInches
+      const baseHeight = baseWidth
+
+      const snapX = Math.round(e.target.position().x / baseWidth) * baseWidth
+      const snapY = Math.round(e.target.position().y / baseHeight) * baseHeight
+
+      e.target.position({
+        x: snapX,
+        y: snapY
+      })
+
     })
 
     stage.on("dragend", (e) => {
