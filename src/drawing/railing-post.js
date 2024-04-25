@@ -16,7 +16,9 @@ export const createRailingPost = (x, y) => {
    * CREATE NEW DRAGGABLE GROUP */ 
   const objectGroup = new Konva.Group({
     draggable: true,
-    name: 'railing-post'
+    name: 'railing-post',
+    width: postWidth,
+    height: postHeight
   });
   objectGroup.add(rect)
 

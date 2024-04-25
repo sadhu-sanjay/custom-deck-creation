@@ -20,11 +20,11 @@ export function stageDragListener(stage, sidebarX, sidebarY) {
 
     stage.on('dragmove', (e) => {
 
-      const baseWidth = fourInches
-      const baseHeight = baseWidth
+      const baseWidth = e.target.width()
 
+      console.log("E", baseWidth, baseHeight)
       const snapX = Math.round(e.target.position().x / baseWidth) * baseWidth
-      const snapY = Math.round(e.target.position().y / baseHeight) * baseHeight
+      const snapY = Math.round(e.target.position().y / baseWidth) * baseWidth
 
       e.target.position({
         x: snapX,

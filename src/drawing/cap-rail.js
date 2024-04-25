@@ -14,7 +14,7 @@ export const createCapRail = (x, y) => {
     width: rectWidth,
     height: rectHeight,
     stroke: "black",
-    strokeWidth: 2,
+    strokeWidth: 1,
   });
 
   var shadowRectangle = new Konva.Rect({
@@ -23,7 +23,7 @@ export const createCapRail = (x, y) => {
     fill: "#FF7B17",
     opacity: 0.6,
     stroke: "#CF6412",
-    strokeWidth: 3,
+    strokeWidth: 1,
     dash: [20, 2],
   });
   shadowRectangle.hide();
@@ -34,7 +34,9 @@ export const createCapRail = (x, y) => {
 
   const objectGroup = new Konva.Group({
     draggable: true,
-    name: 'cap-rail'
+    name: 'cap-rail',
+    width: rectWidth,
+    height: rectHeight
   });
   objectGroup.on("click", () => {
     tr.nodes([objectGroup]);

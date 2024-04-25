@@ -3,10 +3,15 @@ import { feet, halfFeet } from '~/config'
 
 export const Post = (x, y) => {
 
+  const rectWidth = halfFeet
+  const rectHeight = halfFeet
+
   /*main Draggble shapes */
   const objectGroup = new Konva.Group({
     draggable: true,
     name: 'Post',
+    width: halfFeet,
+    height: halfFeet
   });
 
   const textGroup = new Konva.Group({
@@ -21,8 +26,6 @@ export const Post = (x, y) => {
 
   mainGroup.add(objectGroup, textGroup)
 
-  const rectWidth = halfFeet
-  const rectHeight = halfFeet
   const rect = new Konva.Rect({
     x: 0,
     y: 0,
@@ -31,6 +34,7 @@ export const Post = (x, y) => {
     stroke: "gray",
     offsetX: -rectWidth/2,
     offsetY: -rectHeight/2,
+    strokeWidth: 1,
   });
   const circle = new Konva.Circle({
     x: 0,
@@ -39,6 +43,7 @@ export const Post = (x, y) => {
     offsetX: -rectWidth,
     offsetY: -rectHeight,
     stroke: "gray",
+    strokeWidth: 1,
   });
   objectGroup.add(circle, rect)
 
