@@ -5,6 +5,7 @@ export const Post = (x, y) => {
 
   const rectWidth = halfFeet
   const rectHeight = halfFeet
+  
 
   /*main Draggble shapes */
   const objectGroup = new Konva.Group({
@@ -73,6 +74,8 @@ export const Post = (x, y) => {
     fontSize: 18,
   });
   textGroup.add(text)
+
+  
 
   return mainGroup
 };

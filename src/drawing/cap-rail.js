@@ -6,9 +6,29 @@ const rectWidth = halfFeet
 const rectHeight = feet(4)
 
 export const createCapRail = (x, y) => {
-
   // const tr = createTransformer()
   // drawerLayer.add(tr)
+
+  const transformerConfig = {
+    keepRatio: true,
+    rotationSnaps: [0, 45, 90, 135, 180, 225, 270, 360],
+    enabledAnchors: ["top-center", "bottom-center"],
+    anchorStyleFunc: (anchor) => {
+      if (anchor.hasName("rotater")) {
+        const patternImage = new Image();
+        patternImage.src = "/refresh.png";
+
+        anchor.fillPatternImage(patternImage);
+        anchor.height(16);
+        anchor.width(16);
+        anchor.strokeWidth(0);
+        anchor.offsetX(8);
+        anchor.offsetY(8);
+
+        anchor.fill(null);
+      }
+    },
+  };
 
   const rect = new Konva.Rect({
     width: rectWidth,
@@ -34,23 +54,25 @@ export const createCapRail = (x, y) => {
 
   const objectGroup = new Konva.Group({
     draggable: true,
-    name: 'cap-rail',
+    name: "cap-rail",
     width: rectWidth,
-    height: rectHeight
+    height: rectHeight,
   });
-  objectGroup.on("click", () => {
-    tr.nodes([objectGroup]);
-  });
+  objectGroup.trConfig = transformerConfig
+  objectGroup.canTransform = true
+
+
+  // objectGroup.on("click", () => {
+  //   tr.nodes([objectGroup]);
+  // });
 
   objectGroup.add(rect);
 
   objectGroup.on("dragmove", () => {
-
     shadowRectangle.position({
       x: Math.round(objectGroup.x() / rectWidth) * rectWidth,
       y: Math.round(objectGroup.y() / rectWidth) * rectWidth,
     });
-
   });
 
   objectGroup.on("dragstart", (e) => {
@@ -86,9 +108,9 @@ export const createCapRail = (x, y) => {
   const mainGroup = new Konva.Group({
     x: x,
     y: y,
-  })
+  });
 
-  mainGroup.add(objectGroup, shadowRectangle, textGroup)
+  mainGroup.add(objectGroup, shadowRectangle, textGroup);
 
-  return mainGroup
+  return mainGroup;
 };

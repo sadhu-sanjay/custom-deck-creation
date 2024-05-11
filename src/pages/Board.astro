@@ -7,7 +7,8 @@
   import { createStageSidebar } from "~/drawing/stage-sidebar";
   import { Group } from "konva/lib/Group";
   import { stageDragListener } from "~/drawing/stage-listener"
-import Sidebar from "~/components/organisms/Sidebar.astro";
+  import Sidebar from "~/components/organisms/Sidebar.astro";
+  import { DECKLAYER } from "~/config"
 
   const containerEl = document.getElementById("container");
   const containerWidth = containerEl.clientWidth;
@@ -25,13 +26,11 @@ import Sidebar from "~/components/organisms/Sidebar.astro";
     width: containerWidth,
     height: containerHeight,
   });
-  stageDragListener(stage, sideBarX, sideBarY)
-
-  var deckLayer = new Konva.Layer({ name: 'deckLayer' });
-  var sidebarLayer = new Konva.Layer({ name: 'drawerLayer' });
-
+  var deckLayer = new Konva.Layer({ name: DECKLAYER });
   stage.add(deckLayer);
+  var sidebarLayer = new Konva.Layer({ name: 'drawerLayer' });
   stage.add(sidebarLayer);
+  stageDragListener(stage, sideBarX, sideBarY, deckLayer)
 
   // Add click event listener to stage
   // stage.on("click", (e) => {
