@@ -33,6 +33,7 @@ export const createCapRail = (x, y) => {
     height: rectHeight,
     stroke: "black",
     strokeWidth: 1,
+    strokeScaleEnabled: false,
   });
 
   var shadowRectangle = new Konva.Rect({
@@ -55,7 +56,6 @@ export const createCapRail = (x, y) => {
     name: "cap-rail",
     width: rectWidth,
     height: rectHeight,
-    strokeScaleEnabled: true,
   });
   objectGroup.trConfig = transformerConfig
   objectGroup.canTransform = true
