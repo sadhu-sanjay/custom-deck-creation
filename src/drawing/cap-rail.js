@@ -1,6 +1,4 @@
 import { feet, halfFeet } from "~/config";
-import Konva from "konva";
-import { createTransformer } from "./create-transformer";
 
 const rectWidth = halfFeet
 const rectHeight = feet(4)
