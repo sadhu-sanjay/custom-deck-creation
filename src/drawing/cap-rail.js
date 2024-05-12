@@ -1,16 +1,16 @@
 import { feet, halfFeet } from "~/config";
+import Konva from "konva";
 
 const rectWidth = halfFeet
 const rectHeight = feet(4)
 
 export const createCapRail = (x, y) => {
-  // const tr = createTransformer()
-  // drawerLayer.add(tr)
 
   const transformerConfig = {
     keepRatio: true,
     rotationSnaps: [0, 45, 90, 135, 180, 225, 270, 360],
     enabledAnchors: ["top-center", "bottom-center"],
+    ignoreStroke: true,
     anchorStyleFunc: (anchor) => {
       if (anchor.hasName("rotater")) {
         const patternImage = new Image();
@@ -55,6 +55,7 @@ export const createCapRail = (x, y) => {
     name: "cap-rail",
     width: rectWidth,
     height: rectHeight,
+    strokeScaleEnabled: true,
   });
   objectGroup.trConfig = transformerConfig
   objectGroup.canTransform = true
