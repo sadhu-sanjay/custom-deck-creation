@@ -1,10 +1,10 @@
-import { feet, halfFeet } from "~/config";
 import Konva from "konva";
+import { feet, halfFeet } from "~/config";
 
 const rectWidth = halfFeet
 const rectHeight = feet(4)
 
-export const createCapRail = (x, y) => {
+export const createBeam = (x, y) => {
 
   const transformerConfig = {
     keepRatio: true,
@@ -35,6 +35,12 @@ export const createCapRail = (x, y) => {
     strokeWidth: 1,
     strokeScaleEnabled: false,
   });
+  const line = new Konva.Line({
+    points: [rectWidth/2, 0, rectWidth/2, rectHeight],
+    stroke: "black",
+    strokeWidth: 1,
+    strokeScaleEnabled: false,
+  })
 
   var shadowRectangle = new Konva.Rect({
     width: rectWidth,
@@ -52,7 +58,7 @@ export const createCapRail = (x, y) => {
 
   const objectGroup = new Konva.Group({
     draggable: true,
-    name: "cap-rail",
+    name: "beam",
     width: rectWidth,
     height: rectHeight,
   });
@@ -60,7 +66,7 @@ export const createCapRail = (x, y) => {
   objectGroup.canTransform = true
 
 
-  objectGroup.add(rect);
+  objectGroup.add(rect, line);
 
   objectGroup.on("dragmove", (e) => {
 
@@ -84,7 +90,7 @@ export const createCapRail = (x, y) => {
 
   /* Secondarly Group */
   const text = new Konva.Text({
-    text: "Cap Rail",
+    text: "Beam",
     offsetX: -feet(),
     fontSize: 18,
   });

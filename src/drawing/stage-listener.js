@@ -1,32 +1,27 @@
 import { fourInches, halfFeet } from "~/config";
 import { createTransformer } from "./create-transformer";
 import { DECKLAYER } from "~/config";
+import Konva from "konva";
 
 export function stageDragListener(stage, sidebarX, sidebarY, deckLayer) {
 
-    let draggableShapes = ['Post', 'railing-post', 'cap-rail'] // shapes which are allowed to be copied
+    let draggableShapes = ['Post', 'railing-post', 'cap-rail', 'beam'] // shapes which are allowed to be copied
     let startPosRel; // relative Start Position
     let startPosAbs = false;
     let shouldClone = false;
-
-    const tr = createTransformer()
-
-    // const result = stage.find('.' + DECKLAYER)
-    // console.log("result", newStage.find('Group'))
-    
-    const result = stage.find(node => {
-      return node.getType() == 'Transformer'
-    })
+    let tr;
 
 
     stage.on('click', (e) => {
 
       const objectGroup = e.target.getParent()
-      if (!objectGroup) return
+      if (!objectGroup) return tr.nodes([])
 
       if (objectGroup.canTransform) { // can only transform if the group is transformable
         const trConfig = objectGroup.trConfig
-        const tr = new Konva.Transformer(trConfig)
+
+        tr = new Konva.Transformer(trConfig)
+
         deckLayer.add(tr)
         tr.nodes([objectGroup])
       }
