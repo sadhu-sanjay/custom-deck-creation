@@ -45,7 +45,6 @@ export const createCapRail = (x, y) => {
     strokeWidth: 1,
     dash: [20, 2],
   });
-  shadowRectangle.hide();
 
   /**
    CREATE NEW DRAGGABLE GROUP 
@@ -67,28 +66,20 @@ export const createCapRail = (x, y) => {
 
   objectGroup.add(rect);
 
-  objectGroup.on("dragmove", () => {
-    shadowRectangle.position({
-      x: Math.round(objectGroup.x() / rectWidth) * rectWidth,
-      y: Math.round(objectGroup.y() / rectWidth) * rectWidth,
-    });
-  });
+  objectGroup.on("dragmove", (e) => {
 
-  objectGroup.on("dragstart", (e) => {
-    // shadow Rectangle
-    shadowRectangle.show();
-    shadowRectangle.moveToTop();
-    objectGroup.moveToTop();
-  });
-
-  objectGroup.on("dragend", (e) => {
-    // shadow Rectangle
     objectGroup.position({
       x: Math.round(objectGroup.x() / rectWidth) * rectWidth,
       y: Math.round(objectGroup.y() / rectWidth) * rectWidth,
     });
-    // shadowRectangle.position = objectGroup.position;
-    // shadowRectangle.hide();
+
+  });
+
+  objectGroup.on("dragend", (e) => {
+    objectGroup.position({
+      x: Math.round(objectGroup.x() / rectWidth) * rectWidth,
+      y: Math.round(objectGroup.y() / rectWidth) * rectWidth,
+    });
   });
 
   /**
@@ -109,7 +100,7 @@ export const createCapRail = (x, y) => {
     y: y,
   });
 
-  mainGroup.add(objectGroup, shadowRectangle, textGroup);
+  mainGroup.add(objectGroup, textGroup);
 
   return mainGroup;
 };
