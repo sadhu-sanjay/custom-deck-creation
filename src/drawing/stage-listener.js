@@ -16,7 +16,6 @@ export function stageDragListener(stage, sidebarX, sidebarY, deckLayer) {
       const objectGroup = e.target.getParent();
       if (objectGroup && objectGroup.attrs.canTransform) {
 
-        console.log("AFter", typeof objectGroup, objectGroup.canTransform)
         const trConfig = objectGroup.attrs.trConfig;
 
         // use the old Transformer if present
@@ -24,8 +23,7 @@ export function stageDragListener(stage, sidebarX, sidebarY, deckLayer) {
         const oldTr = res[0];
 
         if (oldTr) {
-          console.log("Hi There", oldTr);
-          tr.attr = oldTr.attr;
+          tr.attrs = oldTr.attrs;
         } else {
           tr = new Konva.Transformer(trConfig);
           deckLayer.add(tr);

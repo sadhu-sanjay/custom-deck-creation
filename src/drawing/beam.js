@@ -61,10 +61,9 @@ export const createBeam = (x, y) => {
     name: "beam",
     width: rectWidth,
     height: rectHeight,
+    trConfig: transformerConfig,
+    canTransform: true
   });
-  objectGroup.trConfig = transformerConfig
-  objectGroup.canTransform = true
-
 
   objectGroup.add(rect, line);
 
