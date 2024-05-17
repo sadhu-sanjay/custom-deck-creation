@@ -20,6 +20,9 @@ export function stageDragListener(stage, sidebarX, sidebarY, deckLayer) {
 
         // use the old Transformer if present
         const res = deckLayer.find("Transformer");
+
+        console.log("No. of Transformer => ", res)
+
         const oldTr = res[0];
 
         if (oldTr) {
