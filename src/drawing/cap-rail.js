@@ -55,9 +55,11 @@ export const createCapRail = (x, y) => {
     name: "cap-rail",
     width: rectWidth,
     height: rectHeight,
-  });
-  objectGroup.trConfig = transformerConfig
-  objectGroup.canTransform = true
+    trConfig: transformerConfig,
+    canTransform: true,
+    trConfig: transformerConfig,
+    canTransform: true
+  })
 
 
   objectGroup.add(rect);

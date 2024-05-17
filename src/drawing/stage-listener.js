@@ -1,7 +1,6 @@
 import { fourInches, halfFeet } from "~/config";
 import { createTransformer } from "./create-transformer";
 import { DECKLAYER } from "~/config";
-import Konva from "konva";
 
 export function stageDragListener(stage, sidebarX, sidebarY, deckLayer) {
 
@@ -9,21 +8,30 @@ export function stageDragListener(stage, sidebarX, sidebarY, deckLayer) {
     let startPosRel; // relative Start Position
     let startPosAbs = false;
     let shouldClone = false;
-    let tr;
-
+    let tr = new Konva.Transformer()
 
     stage.on('click', (e) => {
 
-      const objectGroup = e.target.getParent()
-      if (!objectGroup) return tr.nodes([])
 
-      if (objectGroup.canTransform) { // can only transform if the group is transformable
-        const trConfig = objectGroup.trConfig
+      const objectGroup = e.target.getParent();
+      if (objectGroup && objectGroup.attrs.canTransform) {
 
-        tr = new Konva.Transformer(trConfig)
+        console.log("AFter", typeof objectGroup, objectGroup.canTransform)
+        const trConfig = objectGroup.attrs.trConfig;
 
-        deckLayer.add(tr)
-        tr.nodes([objectGroup])
+        // use the old Transformer if present
+        const res = deckLayer.find("Transformer");
+        const oldTr = res[0];
+
+        if (oldTr) {
+          console.log("Hi There", oldTr);
+          tr.attr = oldTr.attr;
+        } else {
+          tr = new Konva.Transformer(trConfig);
+          deckLayer.add(tr);
+        }
+
+        tr.nodes([objectGroup]);
       }
 
     })
